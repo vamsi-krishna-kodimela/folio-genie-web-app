@@ -1,0 +1,121 @@
+@import "../../../../../assets/styles/variables.scss";
+.onboard-layout {
+  overflow: hidden;
+  display: flex;
+  .sidebar {
+    padding: 80px 2.6%;
+    width: 320px;
+    height: calc(100vh - 80px);
+    background: #ffffff;
+    box-shadow: 4px 0px 4px rgba($primary-color, 0.1);
+    overflow: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &__tiles {
+      position: relative;
+      height: 120px;
+      .sidebar__tile {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        &-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background-color: rgba($primary-color, 0.16);
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $primary-color;
+        }
+        &-title {
+          color: $text-color;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+        }
+        &::before {
+          top: 48px;
+          bottom: 0px;
+          left: 23px;
+          position: absolute;
+          background-color: rgba($primary-color, 0.16);
+          content: "";
+          width: 2px;
+        }
+      }
+      &--active {
+        .sidebar__tile {
+          &-title {
+            font-weight: 600;
+          }
+          &-icon {
+            border: 2px solid $primary-color;
+          }
+        }
+      }
+      &--completed {
+        .sidebar__tile {
+          &::before {
+            background: $primary-color;
+          }
+          &-icon {
+            background: $primary-color;
+            color: #ffffff;
+          }
+          &-title {
+            font-weight: 600;
+          }
+        }
+      }
+      &:last-child {
+        height: auto;
+        .sidebar__tile {
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    flex: 1;
+    .onboard-layout {
+      &__content {
+        padding: 40px 2.6%;
+        flex: 1;
+        overflow: hidden;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      &__footer {
+        width: 100%;
+        padding: 16px 0px;
+        background-color: $secondary-color;
+        text-align: center;
+        &-button {
+          height: 56px;
+          width: 240px;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 20px;
+          text-align: center;
+          @media screen and (max-width: 600px) {
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,13 @@ const routes: Routes = [
         (m) => m.AuthComponent
       ),
   },
+  {
+    path: 'onboard',
+    loadChildren: () =>
+      import('./workspaces/onboard/onboard.module').then(
+        (m) => m.OnboardModule
+      ),
+  },
 ];
 
 @NgModule({

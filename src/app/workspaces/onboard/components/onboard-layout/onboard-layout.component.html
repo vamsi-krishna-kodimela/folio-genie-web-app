@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<div class="onboard-layout">
+  <div class="sidebar">
+    <div
+      class="sidebar__tiles"
+      *ngFor="let step of steps; let index = index"
+      [ngClass]="{
+        'sidebar__tiles--completed': step.isCompleted,
+        'sidebar__tiles--active': step.isActive && !step.isCompleted
+      }"
+    >
+      <div class="sidebar__tile">
+        <div class="sidebar__tile-icon">{{ index + 1 }}</div>
+        <div class="sidebar__tile-title">{{ step.label }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="onboard-layout__wrapper">
+    <div class="onboard-layout__content">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="onboard-layout__footer">
+      <button
+        mat-flat-button
+        color="primary"
+        class="onboard-layout__footer-button"
+      >
+        Create Profile
+      </button>
+    </div>
+  </div>
+</div>
