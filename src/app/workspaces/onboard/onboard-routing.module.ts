@@ -2,8 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OnboardLayoutComponent } from './components/onboard-layout/onboard-layout.component';
 import { GetStartedComponent } from './pages/get-started/get-started.component';
+import { ChooseProfessionComponent } from './pages/choose-profession/choose-profession.component';
+import { ConnectSocialAccountsComponent } from './pages/connect-social-accounts/connect-social-accounts.component';
+import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configure-portfolio.component';
+import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
 
 const routes: Routes = [
+  {
+    path: 'preview',
+    loadComponent: () =>
+      import(
+        '../../shared/components/template-preview/template-preview.component'
+      ).then((c) => c.TemplatePreviewComponent),
+  },
   {
     path: '',
     component: OnboardLayoutComponent,
@@ -11,6 +22,22 @@ const routes: Routes = [
       {
         path: 'get-started',
         component: GetStartedComponent,
+      },
+      {
+        path: 'choose-profession',
+        component: ChooseProfessionComponent,
+      },
+      {
+        path: 'connect-social',
+        component: ConnectSocialAccountsComponent,
+      },
+      {
+        path: 'configure-website',
+        component: ConfigurePortfolioComponent,
+      },
+      {
+        path: 'choose-design',
+        component: ChooseDesignComponent,
       },
     ],
   },
