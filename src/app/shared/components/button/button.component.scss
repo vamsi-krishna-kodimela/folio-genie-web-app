@@ -1,0 +1,15 @@
+button {
+  border-radius: 8px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: center;
+  &.mat-mdc-button-base {
+    height: 56px;
+    @media screen and (max-width: 767px) {
+      height: 40px;
+    }
+  }
+}
