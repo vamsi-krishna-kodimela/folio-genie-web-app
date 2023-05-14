@@ -1,0 +1,55 @@
+@import "../../../../assets/styles/variables.scss";
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 40px auto;
+  max-width: 400px;
+  @media screen and (max-width: 600px) {
+    gap: 24px;
+  }
+  &__title {
+    color: $text-color;
+    margin: 0px auto;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+  &__button {
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    height: 56px;
+    @media screen and (max-width: 600px) {
+      height: 40px;
+    }
+  }
+}
+
+.login-hints {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  padding-bottom: 40px;
+  text-align: center;
+  &__hint {
+    font-size: 16px;
+    font-weight: 500;
+    color: $primary-color;
+    display: block;
+    margin: 16px auto;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+  }
+}

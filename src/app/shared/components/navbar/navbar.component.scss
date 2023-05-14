@@ -1,0 +1,16 @@
+@import "../../../../assets/styles/variables.scss";
+
+.mat-toolbar {
+  height: 80px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba($primary-color, 0.1);
+  padding: 12px 80px;
+  .brand-logo {
+    height: 56px;
+    width: 232px;
+    background-image: url("/assets/images/logos/foliogenie-logo.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+}
