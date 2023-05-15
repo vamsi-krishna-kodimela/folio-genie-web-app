@@ -1,0 +1,59 @@
+@import "../../../../../assets/styles/variables.scss";
+
+.connect-social {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0px auto;
+  &__title {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: $text-color;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    &-item {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      &-icon {
+        background-color: $primary-color;
+        color: white;
+        width: 56px;
+        height: 56px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @media screen and (max-width: 600px) {
+          height: 40px;
+          width: 40px;
+        }
+      }
+      &-input {
+        flex: 1;
+      }
+      &-check {
+        width: 32px;
+        height: 32px;
+        color: $primary-color;
+        cursor: pointer;
+        .check-icon {
+          width: 32px;
+          height: 32px;
+        }
+        &--disabled {
+          opacity: 0.2;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,27 @@
-<p>connect-social-accounts works!</p>
+<form class="connect-social">
+  <div class="connect-social__title">Choose Your Profession</div>
+  <div class="connect-social__list">
+    <div
+      class="connect-social__list-item"
+      *ngFor="let account of socialAccounts"
+    >
+      <div class="connect-social__list-item-icon">
+        <i-feather [name]="account.iconName" class="icon"></i-feather>
+      </div>
+      <div class="connect-social__list-item-input">
+        <app-customfield></app-customfield>
+      </div>
+      <div
+        class="connect-social__list-item-check"
+        [ngClass]="{
+          'connect-social__list-item-check--disabled': !account.isChecked
+        }"
+      >
+        <i-feather
+          [name]="account.isChecked ? 'check-circle' : 'circle'"
+          class="check-icon"
+        ></i-feather>
+      </div>
+    </div>
+  </div>
+</form>

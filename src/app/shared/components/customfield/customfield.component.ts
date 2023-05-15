@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./customfield.component.scss'],
 })
 export class CustomfieldComponent {
-  @Input({ required: true })
-  label!: string;
+  @Input()
+  label?: string;
   @Input() placeholder: string = '';
 }
