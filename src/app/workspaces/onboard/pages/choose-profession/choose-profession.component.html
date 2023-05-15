@@ -1,1 +1,15 @@
-<p>choose-profession works!</p>
+<form class="choose-profession">
+  <div class="choose-profession__title">Choose Your Profession</div>
+  <div class="choose-profession__grid">
+    <div
+      class="choose-profession__grid-item"
+      [ngStyle]="{ backgroundImage: getProfessionImage(profession) }"
+      [ngClass]="{
+        'choose-profession__grid-item--selected':
+          profession.id === selectedProfession
+      }"
+      *ngFor="let profession of professions"
+      (click)="selectProfession(profession)"
+    ></div>
+  </div>
+</form>
