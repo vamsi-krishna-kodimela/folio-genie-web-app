@@ -9,4 +9,6 @@ export class CustomfieldComponent {
   @Input()
   label?: string;
   @Input() placeholder: string = '';
+  @Input() sufixIcon?: string;
+  @Input() sufixIconColor?: string;
 }

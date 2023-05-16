@@ -15,6 +15,9 @@ import {
   Dribbble,
   Circle,
   CheckCircle,
+  Loader,
+  Check,
+  X,
 } from 'angular-feather/icons';
 
 const icons = {
@@ -25,6 +28,9 @@ const icons = {
   Dribbble,
   Circle,
   CheckCircle,
+  Loader,
+  Check,
+  X,
 };
 
 @NgModule({

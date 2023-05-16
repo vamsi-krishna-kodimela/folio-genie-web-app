@@ -4,8 +4,15 @@
   </label>
   <input
     class="custom-field__input"
+    [ngClass]="{ 'custom-field__input--with-sufix': sufixIcon }"
     [id]="label"
     [title]="label"
     [placeholder]="placeholder"
   />
+  <feather-icon
+    [name]="sufixIcon"
+    class="custom-field__sufix"
+    *ngIf="sufixIcon"
+    [ngStyle]="{ color: sufixIconColor ?? 'red' }"
+  ></feather-icon>
 </div>
