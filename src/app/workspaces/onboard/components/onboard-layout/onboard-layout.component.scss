@@ -2,20 +2,36 @@
 .onboard-layout {
   overflow: hidden;
   display: flex;
+  @media screen and (max-width: 680px) {
+    flex-direction: column;
+    height: calc(100vh - 84px);
+  }
   .sidebar {
-    padding: 80px 2.6%;
+    padding: 80px 4%;
     width: 320px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 84px);
     background: #ffffff;
     box-shadow: 4px 0px 4px rgba($primary-color, 0.1);
     overflow: hidden;
     overflow-y: auto;
+    @media screen and (max-width: 680px) {
+      height: auto;
+      width: 100%;
+      display: flex;
+      padding: 24px 0px 0px 4%;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
     &::-webkit-scrollbar {
       display: none;
     }
     &__tiles {
       position: relative;
       height: 120px;
+      @media screen and (max-width: 680px) {
+        min-width: 120px;
+        height: auto;
+      }
       .sidebar__tile {
         display: flex;
         gap: 16px;
@@ -38,6 +54,9 @@
           font-weight: 500;
           font-size: 16px;
           line-height: 20px;
+          @media screen and (max-width: 680px) {
+            display: none;
+          }
         }
         &::before {
           top: 48px;
@@ -47,6 +66,13 @@
           background-color: rgba($primary-color, 0.16);
           content: "";
           width: 2px;
+          @media screen and (max-width: 680px) {
+            left: 48px;
+            right: 0px;
+            top: 23px;
+            height: 2px;
+            width: auto;
+          }
         }
       }
       &--active {
@@ -86,11 +112,11 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 84px);
     flex: 1;
     .onboard-layout {
       &__content {
-        padding: 40px 2.6%;
+        padding: 40px 4%;
         flex: 1;
         overflow: hidden;
         overflow-y: auto;
@@ -111,9 +137,6 @@
           font-size: 16px;
           line-height: 20px;
           text-align: center;
-          @media screen and (max-width: 600px) {
-            height: 40px;
-          }
         }
       }
     }
