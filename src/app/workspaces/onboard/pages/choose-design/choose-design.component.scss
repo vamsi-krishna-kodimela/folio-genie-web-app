@@ -1,0 +1,81 @@
+@import "../../../../../assets/styles/variables.scss";
+
+.choose-design {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0px auto;
+  &__title {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: $text-color;
+  }
+  &__grid {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    &-item {
+      width: 240px;
+      height: 135px;
+      background: #ffffff;
+      box-shadow: 0px 0px 8px rgba($primary-color, 0.32);
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      &-overlay {
+        padding: 12px 20px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0px;
+        background: linear-gradient(
+          180deg,
+          rgba($primary-color, 0) 0%,
+          rgba($primary-color, 0.4) 100%
+        );
+        border-radius: 0px 0px 8px 8px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 15px;
+        color: #ffffff;
+      }
+      &-icon {
+        display: none;
+        width: 40px;
+        height: 40px;
+        background: rgba($primary-color, 0.16);
+        border-radius: 8px;
+        color: $primary-color;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 50%;
+        top: 40px;
+        transform: translateX(-50%);
+
+        .icon {
+          width: 14px;
+          height: auto;
+        }
+        &:hover {
+          background: rgba($primary-color, 0.32);
+        }
+      }
+      &:hover {
+        box-shadow: 0px 0px 8px rgba($primary-color, 0.72);
+        .choose-design__grid-item-icon {
+          display: flex;
+        }
+      }
+      &--selected {
+        border: 2px solid $primary-color;
+      }
+    }
+  }
+}

@@ -1,1 +1,21 @@
-<p>choose-design works!</p>
+<form class="choose-design">
+  <div class="choose-design__title">Choose Your Profession</div>
+  <div class="choose-design__grid">
+    <div
+      class="choose-design__grid-item"
+      *ngFor="let template of templates"
+      [ngClass]="{
+        'choose-design__grid-item--selected': selectedTemplate == template.id
+      }"
+      (click)="selectTemplate(template)"
+    >
+      <div
+        class="choose-design__grid-item-icon"
+        (click)="previewTemplate($event, template)"
+      >
+        <i-feather name="eye" class="icon"></i-feather>
+      </div>
+      <div class="choose-design__grid-item-overlay">{{ template.title }}</div>
+    </div>
+  </div>
+</form>

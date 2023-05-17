@@ -3,8 +3,67 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-choose-design',
   templateUrl: './choose-design.component.html',
-  styleUrls: ['./choose-design.component.scss']
+  styleUrls: ['./choose-design.component.scss'],
 })
 export class ChooseDesignComponent {
+  selectedTemplate?: string;
+  templates: Template[] = [
+    {
+      id: '1',
+      title: 'Template 1',
+      image: 'template1.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '2',
+      title: 'Template 2',
+      image: 'template2.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '3',
+      title: 'Template 3',
+      image: 'template3.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '4',
+      title: 'Template 4',
+      image: 'template4.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '5',
+      title: 'Template 5',
+      image: 'template5.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '6',
+      title: 'Template 6',
+      image: 'template6.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+    {
+      id: '7',
+      title: 'Template 7',
+      image: 'template7.png',
+      demoLink: 'https://folio-genie.web.app',
+    },
+  ];
 
+  selectTemplate(template: Template): void {
+    this.selectedTemplate = template.id;
+  }
+  previewTemplate(event: Event, template: Template): void {
+    window.open(template.demoLink, '_blank');
+    event.stopPropagation();
+  }
+}
+
+interface Template {
+  id: string;
+  title: string;
+  image: string;
+  demoLink: string;
 }
