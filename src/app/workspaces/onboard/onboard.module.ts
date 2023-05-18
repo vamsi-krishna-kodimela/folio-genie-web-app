@@ -10,9 +10,23 @@ import { ChooseProfessionComponent } from './pages/choose-profession/choose-prof
 import { ConnectSocialAccountsComponent } from './pages/connect-social-accounts/connect-social-accounts.component';
 import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configure-portfolio.component';
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
+import { FileUploadFieldComponent } from 'src/app/shared/components/file-upload-field/file-upload-field.component';
 
 @NgModule({
-  declarations: [OnboardLayoutComponent, GetStartedComponent, ChooseProfessionComponent, ConnectSocialAccountsComponent, ConfigurePortfolioComponent, ChooseDesignComponent],
-  imports: [CommonModule, OnboardRoutingModule, SharedModule, MatButtonModule],
+  declarations: [
+    OnboardLayoutComponent,
+    GetStartedComponent,
+    ChooseProfessionComponent,
+    ConnectSocialAccountsComponent,
+    ConfigurePortfolioComponent,
+    ChooseDesignComponent,
+  ],
+  imports: [
+    CommonModule,
+    OnboardRoutingModule,
+    SharedModule,
+    MatButtonModule,
+    FileUploadFieldComponent,
+  ],
 })
 export class OnboardModule {}

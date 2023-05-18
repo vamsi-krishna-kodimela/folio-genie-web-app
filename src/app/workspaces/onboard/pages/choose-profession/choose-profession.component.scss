@@ -17,7 +17,6 @@
   }
   &__grid {
     display: flex;
-    gap: 80px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     @media screen and (max-width: 680px) {

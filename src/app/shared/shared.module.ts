@@ -19,6 +19,7 @@ import {
   Check,
   X,
   Eye,
+  Upload,
 } from 'angular-feather/icons';
 
 const icons = {
@@ -33,6 +34,7 @@ const icons = {
   Check,
   X,
   Eye,
+  Upload,
 };
 
 @NgModule({
