@@ -1,1 +1,37 @@
-<p>template-preview works!</p>
+<div class="template-preview">
+  <div class="template-preview__holder">
+    <div class="template-preview__holder-device">
+      // Import Template from Portfolio Template
+    </div>
+    <div class="template-preview__holder-modes">
+      <div
+        class="template-preview__holder-modes-item template-preview__holder-modes-item--active"
+      >
+        <i-feather name="smartphone" class="icon"></i-feather>
+      </div>
+      <div class="template-preview__holder-modes-item">
+        <i-feather name="tablet" class="icon"></i-feather>
+      </div>
+      <div class="template-preview__holder-modes-item">
+        <i-feather name="monitor" class="icon"></i-feather>
+      </div>
+    </div>
+    <app-template-config [configuration]="config"></app-template-config>
+  </div>
+  <div class="template-preview__footer">
+    <button
+      mat-flat-button
+      color="primary"
+      class="template-preview__footer-button template-preview__footer-button--outline"
+    >
+      Save
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      class="template-preview__footer-button"
+    >
+      Save & Launch
+    </button>
+  </div>
+</div>

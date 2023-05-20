@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FeatherModule } from 'angular-feather';
+import { MatExpansionModule } from '@angular/material/expansion';
 import {
   Camera,
   Heart,
@@ -20,7 +21,13 @@ import {
   X,
   Eye,
   Upload,
+  Smartphone,
+  Monitor,
+  Tablet,
+  Settings,
+  ChevronDown,
 } from 'angular-feather/icons';
+import { TemplateConfigComponent } from './components/template-preview/components/template-config/template-config.component';
 
 const icons = {
   Camera,
@@ -35,10 +42,19 @@ const icons = {
   X,
   Eye,
   Upload,
+  Smartphone,
+  Monitor,
+  Tablet,
+  Settings,
+  ChevronDown,
 };
 
 @NgModule({
-  declarations: [CustomfieldComponent, NavbarComponent],
+  declarations: [
+    CustomfieldComponent,
+    NavbarComponent,
+    TemplateConfigComponent,
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -46,7 +62,13 @@ const icons = {
     MatIconModule,
     MatToolbarModule,
     FeatherModule.pick(icons),
+    MatExpansionModule,
   ],
-  exports: [CustomfieldComponent, NavbarComponent, FeatherModule],
+  exports: [
+    CustomfieldComponent,
+    NavbarComponent,
+    FeatherModule,
+    TemplateConfigComponent,
+  ],
 })
 export class SharedModule {}

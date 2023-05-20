@@ -1,0 +1,85 @@
+@import "../../../../assets/styles/variables.scss";
+
+.template-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &__holder {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    flex: 1;
+    &-modes {
+      width: 60px;
+      position: absolute;
+      left: 0px;
+      top: 80px;
+      background: #ffffff;
+      box-shadow: 0px -4px 4px rgba($color: $primary-color, $alpha: 0.08),
+        0px 4px 4px rgba($color: $primary-color, $alpha: 0.08),
+        4px 0px 4px rgba($color: $primary-color, $alpha: 0.08);
+      border-radius: 0px 8px 8px 0px;
+      &-item {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba($color: $primary-color, $alpha: 0.08);
+        }
+        &:active {
+          background-color: rgba($color: $primary-color, $alpha: 0.16);
+        }
+        &:first-child {
+          border-radius: 0px 8px 0px 0px;
+        }
+        &:last-child {
+          border-radius: 0px 0px 8px 0px;
+        }
+        .icon {
+          width: 20px;
+          height: 20px;
+          color: $text-color;
+        }
+        &--active {
+          background-color: $primary-color !important;
+          .icon {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding: 16px;
+    background-color: $secondary-color;
+    &-button {
+      width: 296px;
+      height: 56px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      &--outline {
+        background-color: transparent !important;
+        border: 2px solid $primary-color !important;
+        color: $primary-color !important;
+        &:hover {
+          background-color: rgba(
+            $color: $primary-color,
+            $alpha: 0.2
+          ) !important;
+        }
+      }
+    }
+  }
+}

@@ -6,14 +6,25 @@ import { ChooseProfessionComponent } from './pages/choose-profession/choose-prof
 import { ConnectSocialAccountsComponent } from './pages/connect-social-accounts/connect-social-accounts.component';
 import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configure-portfolio.component';
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
+import { DashboardLayoutComponent } from 'src/app/shared/components/dashboard-layout/dashboard-layout.component';
 
 const routes: Routes = [
   {
     path: 'preview',
-    loadComponent: () =>
-      import(
-        '../../shared/components/template-preview/template-preview.component'
-      ).then((c) => c.TemplatePreviewComponent),
+    component: DashboardLayoutComponent,
+    children: [
+      {
+        path: ':id',
+        loadComponent: () =>
+          import(
+            '../../shared/components/template-preview/template-preview.component'
+          ).then((m) => m.TemplatePreviewComponent),
+      },
+      {
+        path: '**',
+        redirectTo: '/dashboard',
+      },
+    ],
   },
   {
     path: '',
