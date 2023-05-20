@@ -8,7 +8,7 @@
   gap: 16px;
   align-items: center;
   background-color: rgba($primary-color, 0.08);
-  border: 2px solid $primary-color;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%235271ff' stroke-width='3' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
   border-radius: 8px;
 
   &__input {
