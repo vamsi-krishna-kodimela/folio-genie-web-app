@@ -1,0 +1,20 @@
+.global-loader-icon {
+  width: 100px;
+  height: 100px;
+  background-image: url("/assets/images/common/loader.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100px;
+  border-radius: 16px;
+}
+::ng-deep {
+  .global-loader-panel {
+    .mdc-dialog__surface {
+      box-shadow: none;
+      background-color: transparent;
+      .mdc-dialog__content {
+        padding: 0px;
+      }
+    }
+  }
+}

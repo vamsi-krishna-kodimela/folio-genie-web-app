@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FeatherModule } from 'angular-feather';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {
   Camera,
@@ -29,6 +30,7 @@ import {
 } from 'angular-feather/icons';
 import { TemplateConfigComponent } from './components/template-preview/components/template-config/template-config.component';
 import { FormsModule } from '@angular/forms';
+import { GlobalLoaderComponent } from './components/global-loader/global-loader.component';
 
 const icons = {
   Camera,
@@ -55,6 +57,7 @@ const icons = {
     CustomfieldComponent,
     NavbarComponent,
     TemplateConfigComponent,
+    GlobalLoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +68,7 @@ const icons = {
     FeatherModule.pick(icons),
     MatExpansionModule,
     FormsModule,
+    MatDialogModule,
   ],
   exports: [
     CustomfieldComponent,

@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../models';
+import { environment } from 'src/environment/environment';
+import { CookieService } from 'ngx-cookie-service';
+import { CommonService } from '../common/common.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,30 +26,42 @@ export class AuthService {
     this._user$.next(value);
   }
 
-  constructor(private http: HttpClient) {
-    this.host = 'https://api.foliogenie.live';
+  constructor(
+    private http: HttpClient,
+    private cookies: CookieService,
+    private commonService: CommonService
+  ) {
+    this.host = environment.host;
   }
 
   authenticateUser(email: string, password: string) {
+    this.commonService.setContentLoader(true);
     this.http
       .post<User>(`${this.host}/user/login`, {
         email,
         password,
       })
-      .subscribe((res: User) => {
-        const token = res.token;
-        localStorage.setItem('token', token!);
-        delete res.token;
-        this.user = res;
+      .subscribe({
+        next: (res: User) => {
+          const token = res.token;
+          this.cookies.set('token', token!);
+          delete res.token;
+          this.user = res;
+          this.commonService.setContentLoader(false);
+        },
+        error: (err) => {
+          // ToDo: Handle error
+          this.commonService.setContentLoader(false);
+        },
       });
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return this.cookies.get('token');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.cookies.delete('token');
     this.user = undefined;
   }
 }
