@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
-<form class="login-form">
+<form class="login-form" (submit)="authenticateUser($event)">
   <div class="login-form__title">Log in</div>
-  <app-customfield label="Email"></app-customfield>
-  <app-customfield label="Password"></app-customfield>
+  <app-customfield label="Email" [(value)]="email"></app-customfield>
+  <app-customfield label="Password" [(value)]="password"></app-customfield>
   <button
     type="submit"
     mat-flat-button
