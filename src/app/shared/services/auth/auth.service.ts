@@ -1,30 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { User } from '../../models';
+import { User } from '../../types';
 import { environment } from 'src/environment/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonService } from '../common/common.service';
+import { ReactiveValue } from '../../utils/reactive-value.class';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   readonly host: string;
-
-  private _user?: User;
-  private _user$ = new Subject<User | undefined>();
-  get user(): User | undefined {
-    return this._user;
-  }
-
-  get user$(): Observable<User | undefined> {
-    return this._user$.asObservable();
-  }
-  set user(value: User | undefined) {
-    this._user = value;
-    this._user$.next(value);
-  }
+  private user: ReactiveValue<User | undefined>;
 
   constructor(
     private http: HttpClient,
@@ -32,6 +19,7 @@ export class AuthService {
     private commonService: CommonService
   ) {
     this.host = environment.host;
+    this.user = new ReactiveValue<User | undefined>();
   }
 
   authenticateUser(email: string, password: string) {
@@ -46,11 +34,10 @@ export class AuthService {
           const token = res.token;
           this.cookies.set('token', token!);
           delete res.token;
-          this.user = res;
+          this.user.value = res;
           this.commonService.setContentLoader(false);
         },
         error: (err) => {
-          // ToDo: Handle error
           this.commonService.setContentLoader(false);
         },
       });
@@ -62,6 +49,6 @@ export class AuthService {
 
   logout() {
     this.cookies.delete('token');
-    this.user = undefined;
+    this.user.value = undefined;
   }
 }
