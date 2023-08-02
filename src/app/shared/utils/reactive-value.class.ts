@@ -17,10 +17,10 @@ class ReactiveValue<T> {
     this._value$.next(value!);
   }
 
-  constructor(defaultValue?: T) {
-    if (defaultValue != undefined) {
+  constructor(isBehavioral: boolean = false, defaultValue?: T) {
+    if (isBehavioral) {
       this._value = defaultValue;
-      this._value$ = new BehaviorSubject<T>(defaultValue);
+      this._value$ = new BehaviorSubject<T>(defaultValue as T);
     } else {
       this._value$ = new Subject<T>();
     }

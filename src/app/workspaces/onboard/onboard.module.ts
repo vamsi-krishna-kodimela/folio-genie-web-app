@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { OnboardRoutingModule } from './onboard-routing.module';
 import { OnboardLayoutComponent } from './components/onboard-layout/onboard-layout.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -11,6 +10,7 @@ import { ConnectSocialAccountsComponent } from './pages/connect-social-accounts/
 import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configure-portfolio.component';
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
 import { FileUploadFieldComponent } from 'src/app/shared/components/file-upload-field/file-upload-field.component';
+import { OnboardService } from './services/onboard/onboard.service';
 
 @NgModule({
   declarations: [
@@ -28,5 +28,7 @@ import { FileUploadFieldComponent } from 'src/app/shared/components/file-upload-
     MatButtonModule,
     FileUploadFieldComponent,
   ],
+
+  providers: [OnboardService],
 })
 export class OnboardModule {}

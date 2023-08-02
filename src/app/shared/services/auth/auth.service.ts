@@ -1,54 +1,119 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../types';
-import { environment } from 'src/environment/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonService } from '../common/common.service';
 import { ReactiveValue } from '../../utils/reactive-value.class';
+import { Router } from '@angular/router';
+import { UserStatus } from '../../types/user/user-status.enum';
+import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from '../profile/profile.service';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly host: string;
-  private user: ReactiveValue<User | undefined>;
+  user: ReactiveValue<User | undefined>;
 
   constructor(
-    private http: HttpClient,
     private cookies: CookieService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private router: Router,
+    private toastrService: ToastrService,
+    private profileService: ProfileService
   ) {
-    this.host = environment.host;
-    this.user = new ReactiveValue<User | undefined>();
+    this.user = new ReactiveValue<User | undefined>(true);
+    if (this.authToken) {
+      this.getUser();
+    }
   }
 
   authenticateUser(email: string, password: string) {
     this.commonService.setContentLoader(true);
-    this.http
-      .post<User>(`${this.host}/user/login`, {
-        email,
-        password,
-      })
-      .subscribe({
-        next: (res: User) => {
-          const token = res.token;
-          this.cookies.set('token', token!);
-          delete res.token;
-          this.user.value = res;
-          this.commonService.setContentLoader(false);
-        },
-        error: (err) => {
-          this.commonService.setContentLoader(false);
-        },
-      });
+    this.profileService.authenticate(email, password).subscribe({
+      next: (res: User) => {
+        const token = res.token;
+        this.cookies.set('token', token!);
+        delete res.token;
+        this.user.value = res;
+        this.commonService.setContentLoader(false);
+        this.handleUserOnboarding(res.status, res.isProfileCompleted);
+        this.toastrService.success('Logged in successfully');
+      },
+      error: (err) => {
+        this.commonService.setContentLoader(false);
+        this.toastrService.error(err.error.message);
+      },
+    });
   }
 
-  getToken(): string | null {
+  get authToken(): string | null {
     return this.cookies.get('token');
   }
 
   logout() {
     this.cookies.delete('token');
     this.user.value = undefined;
+  }
+
+  getUser() {
+    this.commonService.setContentLoader(true);
+    this.profileService.getUser().subscribe({
+      next: (res: User) => {
+        this.user.value = res;
+        this.handleUserOnboarding(res.status, res.isProfileCompleted);
+        this.commonService.setContentLoader(false);
+      },
+      error: (err) => {
+        this.commonService.setContentLoader(false);
+        this.toastrService.error(err.error.message);
+      },
+    });
+  }
+  setUser(data: User) {
+    this.user.value = data;
+  }
+
+  handleUserOnboarding(status: UserStatus, isParsingDone: boolean) {
+    let route = '/onboard/';
+    switch (status) {
+      case UserStatus.NEW:
+        route += 'get-started';
+        break;
+      case UserStatus.GET_STARTED:
+        route += 'choose-profession';
+        break;
+      case UserStatus.CHOOSE_PROFESSION:
+        route += 'connect-social';
+        break;
+      case UserStatus.CONNECT_SOCIAL:
+        route += 'parse-profile';
+        break;
+      case UserStatus.PARSING:
+        if (isParsingDone) {
+          route += 'choose-design';
+        } else {
+          route += 'parse-profile';
+        }
+        break;
+      case UserStatus.CHOOSE_DESIGN:
+        route += 'preview';
+        break;
+
+      default:
+        route = '/';
+        break;
+    }
+    this.router.navigateByUrl(route);
+  }
+
+  getUserStatus$(): Observable<UserStatus> {
+    return this.user.value$.pipe(
+      map((user: User | undefined) => user?.status ?? UserStatus.NEW)
+    );
+  }
+
+  getUserEmail$(): Observable<string> {
+    return this.user.value$.pipe(map((user) => user?.email ?? ''));
   }
 }

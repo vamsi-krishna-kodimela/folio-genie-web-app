@@ -12,6 +12,12 @@
     line-height: 20px;
     letter-spacing: 0em;
     text-align: left;
+    &--required {
+      &::after {
+        content: "*";
+        color: $error-color;
+      }
+    }
   }
   &__input {
     height: 56px;
@@ -28,8 +34,23 @@
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
     &--with-sufix {
       padding-right: 48px;
+    }
+    &:disabled {
+      background: rgba($color: $primary-color, $alpha: 0.05);
+      border: 2px solid rgba($color: $primary-color, $alpha: 0.4);
+      color: rgba($color: $text-color, $alpha: 0.8);
+    }
+    &::placeholder {
+      color: $placeholder-color;
     }
   }
   &__sufix {

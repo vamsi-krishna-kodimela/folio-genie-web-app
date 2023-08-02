@@ -10,7 +10,7 @@ export class CommonService {
   private _globalLoader$: ReactiveValue<number>;
   private _globalLoader: MatDialogRef<GlobalLoaderComponent> | undefined;
   constructor(private _dialog: MatDialog) {
-    this._globalLoader$ = new ReactiveValue<number>(0);
+    this._globalLoader$ = new ReactiveValue<number>(true, 0);
   }
   setContentLoader(show: boolean) {
     if (show) {

@@ -1,4 +1,5 @@
 import { Profile } from '..';
+import { UserStatus } from './user-status.enum';
 
 export interface User {
   _id: string;
@@ -6,4 +7,5 @@ export interface User {
   token?: string;
   isProfileCompleted: boolean;
   profile: Profile;
+  status: UserStatus;
 }

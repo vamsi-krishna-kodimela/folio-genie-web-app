@@ -5,8 +5,8 @@
       class="sidebar__tiles"
       *ngFor="let step of steps; let index = index"
       [ngClass]="{
-        'sidebar__tiles--completed': step.isCompleted,
-        'sidebar__tiles--active': step.isActive && !step.isCompleted
+        'sidebar__tiles--completed': index < ((activeStep$ | async) ?? -1),
+        'sidebar__tiles--active': index === (activeStep$ | async)
       }"
     >
       <div class="sidebar__tile">
@@ -24,6 +24,7 @@
         mat-flat-button
         color="primary"
         class="onboard-layout__footer-button"
+        (click)="onProceed()"
       >
         Proceed
       </button>

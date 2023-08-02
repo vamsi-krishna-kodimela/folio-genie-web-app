@@ -11,6 +11,10 @@ export class CustomfieldComponent {
   @Input() placeholder: string = '';
   @Input() sufixIcon?: string;
   @Input() sufixIconColor?: string;
+  @Input() required: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() readOnly: boolean = false;
+  @Input() type: 'text' | 'email' | 'number' = 'text';
   @Input('value') _value: string = '';
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 

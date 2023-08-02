@@ -5,6 +5,7 @@ import {
   Skill,
   SocialMediaHandle,
 } from '..';
+import { UserStatus } from './user-status.enum';
 
 export interface Profile {
   _id: string;
@@ -15,4 +16,5 @@ export interface Profile {
   education: any[];
   experiences: any[];
   projects: Project[];
+  status: UserStatus;
 }

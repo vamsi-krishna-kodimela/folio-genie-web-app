@@ -1,8 +1,28 @@
 <form class="get-started">
   <div class="get-started__title">Fill Your Basic Details</div>
-  <app-customfield label="Email"></app-customfield>
-  <app-customfield label="First Name"></app-customfield>
-  <app-customfield label="Last Name"></app-customfield>
-  <app-customfield label="Mobile Number"></app-customfield>
+  <app-customfield
+    label="Email"
+    placeholder="Enter email"
+    [required]="true"
+    [disabled]="true"
+    [value]="(userEmail$ | async) ?? ''"
+  ></app-customfield>
+  <app-customfield
+    label="First Name"
+    placeholder="Enter First Name"
+    [required]="true"
+    [(value)]="data.firstName"
+  ></app-customfield>
+  <app-customfield
+    label="Last Name"
+    placeholder="Enter Last Name"
+    [required]="true"
+    [(value)]="data.lastName"
+  ></app-customfield>
+  <!-- <app-customfield
+    label="Mobile Number"
+    placeholder="Enter Mobile Number"
+    [required]="true"
+  ></app-customfield> -->
   <app-file-upload-field label="Upload Profile Pic"></app-file-upload-field>
 </form>

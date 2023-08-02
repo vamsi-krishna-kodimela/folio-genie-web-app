@@ -1,5 +1,10 @@
 <div class="custom-field">
-  <label class="custom-field__label" [for]="label" *ngIf="label">
+  <label
+    class="custom-field__label"
+    [ngClass]="{ 'custom-field__label--required': required }"
+    [for]="label"
+    *ngIf="label"
+  >
     {{ label }}
   </label>
   <input
@@ -9,6 +14,9 @@
     [title]="label"
     [placeholder]="placeholder"
     [(ngModel)]="value"
+    [disabled]="disabled"
+    [readOnly]="readOnly"
+    [type]="type"
   />
   <feather-icon
     [name]="sufixIcon"
