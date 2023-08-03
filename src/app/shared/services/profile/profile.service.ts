@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
-import { BasicDetails, User } from '../../types';
+import { BasicDetails, SiteConfig, SocialMediaHandle, User } from '../../types';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,27 @@ export class ProfileService {
   updateBasicDetails(data: BasicDetails) {
     const endpoint = this.endpoint + '/basic-details';
     return this.http.put<BasicDetails>(endpoint, data);
+  }
+
+  fetchSocialHandles() {
+    const endpoint = this.endpoint + '/social-handles';
+    return this.http.get<SocialMediaHandle[]>(endpoint);
+  }
+  updateSocialHandles(data: SocialMediaHandle[]) {
+    const endpoint = this.endpoint + '/social-handles';
+    return this.http.post<SocialMediaHandle[]>(endpoint, data);
+  }
+  getUserStatus() {
+    // ToDo: Implement with API
+    return this.getUser().pipe(map((data) => data.status));
+  }
+
+  getSiteConfig() {
+    const endpoint = this.endpoint + '/site-config';
+    return this.http.get<SiteConfig>(endpoint);
+  }
+  updateSiteConfig(data: SiteConfig) {
+    const endpoint = this.endpoint + '/site-config';
+    return this.http.post<SiteConfig>(endpoint, data);
   }
 }

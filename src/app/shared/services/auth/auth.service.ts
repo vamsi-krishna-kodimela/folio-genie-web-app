@@ -87,7 +87,7 @@ export class AuthService {
         route += 'connect-social';
         break;
       case UserStatus.CONNECT_SOCIAL:
-        route += 'parse-profile';
+        route += 'configure-website';
         break;
       case UserStatus.PARSING:
         if (isParsingDone) {

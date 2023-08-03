@@ -1,11 +1,15 @@
 <form class="configure-portfolio">
   <div class="configure-portfolio__title">Configure Portfolio Website</div>
-  <app-customfield label="Website Title"></app-customfield>
+  <app-customfield
+    label="Website Title"
+    [(value)]="config.siteTitle"
+  ></app-customfield>
   <app-customfield label="Tagline"></app-customfield>
   <app-customfield
     label="Portfolio Handle"
     sufixIcon="check"
     sufixIconColor="green"
+    [(value)]="config.portfolioHandle"
   ></app-customfield>
   <app-file-upload-field label="Upload Fav Icon"></app-file-upload-field>
 </form>

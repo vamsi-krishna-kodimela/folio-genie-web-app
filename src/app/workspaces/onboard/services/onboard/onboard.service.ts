@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, map, mergeMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/services';
-import { BasicDetails, Profession, User } from 'src/app/shared/types';
+import {
+  BasicDetails,
+  Profession,
+  SiteConfig,
+  SocialMediaHandle,
+  User,
+} from 'src/app/shared/types';
 import { OnboardStep } from '../../types/onboard-step.interface';
 import { ONBOARD_STEPS } from '../../data/onboars-steps.data';
 import { UserStatus } from 'src/app/shared/types/user/user-status.enum';
@@ -36,9 +42,11 @@ export class OnboardService {
   setOnboardSteps() {
     this.onboardSteps = [...ONBOARD_STEPS];
   }
+
   setProfessions() {
     this.professions = [...PROFESSIONS];
   }
+
   fetchActiveStep() {
     return this.userStatus$.pipe(
       map((status: UserStatus) => {
@@ -74,16 +82,79 @@ export class OnboardService {
       ...data,
     };
     this.commonService.setContentLoader(true);
-    this.profileService.updateBasicDetails(payload).subscribe({
-      next: (res) => {
-        const user = this.authService.user.value!;
-        user.profile!.basicDetails = res;
-        this.authService.setUser(user);
-        this.commonService.setContentLoader(false);
-      },
-      error: (err) => {
-        this.commonService.setContentLoader(false);
-      },
-    });
+    this.profileService
+      .updateBasicDetails(payload)
+      .pipe(mergeMap((data) => this.mapUserStatus<BasicDetails>(data)))
+      .subscribe({
+        next: (res) => {
+          const user = this.authService.user.value!;
+          user.profile!.basicDetails = res.data;
+          user.status = res.status;
+          this.authService.setUser(user);
+          this.commonService.setContentLoader(false);
+        },
+        error: (err) => {
+          this.commonService.setContentLoader(false);
+        },
+      });
+  }
+
+  fetchSocialHandles() {
+    return this.profileService.fetchSocialHandles();
+  }
+  updateSocialHandles(data: SocialMediaHandle[]) {
+    this.commonService.setContentLoader(true);
+    this.profileService
+      .updateSocialHandles(data)
+      .pipe(
+        mergeMap((handles) => this.mapUserStatus<SocialMediaHandle[]>(handles))
+      )
+      .subscribe({
+        next: (res) => {
+          const user = this.authService.user.value!;
+          user.profile!.socialMediaHandles = res.data;
+          user.status = res.status;
+          this.authService.setUser(user);
+          this.commonService.setContentLoader(false);
+        },
+        error: (err) => {
+          this.commonService.setContentLoader(false);
+        },
+      });
+  }
+
+  fetchSiteConfig() {
+    return this.profileService.getSiteConfig();
+  }
+
+  updateSiteConfig(data: SiteConfig) {
+    this.commonService.setContentLoader(true);
+    data.linkedinId =
+      this.authService.user.value!.profile!.socialMediaHandles.find(
+        (handle) => handle.handle == 'linkedin'
+      )!.link;
+    this.profileService
+      .updateSiteConfig(data)
+      .pipe(mergeMap((config) => this.mapUserStatus<SiteConfig>(config)))
+      .subscribe({
+        next: (res) => {
+          const user = this.authService.user.value!;
+          user.profile!.siteConfig = res.data;
+          user.status = res.status;
+          this.authService.setUser(user);
+          this.commonService.setContentLoader(false);
+        },
+        error: (err) => {
+          this.commonService.setContentLoader(false);
+        },
+      });
+  }
+
+  mapUserStatus<T>(data: T): Observable<{ status: UserStatus; data: T }> {
+    return this.profileService.getUserStatus().pipe(
+      map((status) => {
+        return { data: data, status };
+      })
+    );
   }
 }

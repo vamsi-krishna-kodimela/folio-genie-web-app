@@ -3,5 +3,5 @@ export interface SocialMediaHandle {
   icon: string;
   link: string;
   canDelete: boolean;
-  _id: string;
+  isChecked?: boolean;
 }
