@@ -5,3 +5,4 @@ export * from './user/social-media-handle.interface';
 export * from './user/site-config.interface';
 export * from './user/skill.interface';
 export * from './user/project.interface';
+export * from './common/profession.interface';

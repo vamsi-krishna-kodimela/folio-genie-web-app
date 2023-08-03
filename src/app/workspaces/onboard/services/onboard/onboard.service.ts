@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, map } from 'rxjs';
 import { AuthService } from 'src/app/shared/services';
-import { BasicDetails, User } from 'src/app/shared/types';
+import { BasicDetails, Profession, User } from 'src/app/shared/types';
 import { OnboardStep } from '../../types/onboard-step.interface';
 import { ONBOARD_STEPS } from '../../data/onboars-steps.data';
 import { UserStatus } from 'src/app/shared/types/user/user-status.enum';
 import { ProfileService } from 'src/app/shared/services/profile/profile.service';
 import { CommonService } from 'src/app/shared/services/common/common.service';
+import { PROFESSIONS } from '../../data/professions.data';
 
 @Injectable()
 export class OnboardService {
@@ -14,8 +15,10 @@ export class OnboardService {
   userStatus$: Observable<UserStatus>;
   profile$: Observable<User | undefined>;
   onboardSteps: OnboardStep[] = [];
+  professions: Profession[] = [];
   activeStep$: Observable<number>;
   userEmail$: Observable<string>;
+  userProfession$: Observable<string>;
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
@@ -25,11 +28,16 @@ export class OnboardService {
     this.userStatus$ = authService.getUserStatus$();
     this.activeStep$ = this.fetchActiveStep();
     this.userEmail$ = authService.getUserEmail$();
+    this.userProfession$ = this.getProfessionData();
     this.setOnboardSteps();
+    this.setProfessions();
   }
 
   setOnboardSteps() {
     this.onboardSteps = [...ONBOARD_STEPS];
+  }
+  setProfessions() {
+    this.professions = [...PROFESSIONS];
   }
   fetchActiveStep() {
     return this.userStatus$.pipe(
@@ -45,21 +53,18 @@ export class OnboardService {
   getStartedData() {
     return this.profile$.pipe(
       map((user) => {
-        if (user) {
-          return {
-            firstName: user.profile.basicDetails.firstName ?? '',
-            lastName: user.profile.basicDetails.lastName ?? '',
-            profilePic:
-              user.profile.basicDetails.profilePic ??
-              '"https://foliogenie.live/assets/images/landing-page/header-section.svg',
-          };
-        }
         return {
-          firstName: '',
-          lastName: '',
-          profilePic: '',
+          firstName: user?.profile?.basicDetails?.firstName ?? '',
+          lastName: user?.profile?.basicDetails?.lastName ?? '',
+          profilePic: user?.profile?.basicDetails?.profilePic ?? '',
         };
       })
+    );
+  }
+
+  getProfessionData() {
+    return this.profile$.pipe(
+      map((user) => user?.profile?.basicDetails?.profession ?? '')
     );
   }
 

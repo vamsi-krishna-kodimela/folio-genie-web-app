@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services';
 import { User } from 'src/app/shared/types';
 import { OnboardService } from '../../services/onboard/onboard.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -17,6 +17,7 @@ export class GetStartedComponent implements OnInit {
     lastName: '',
     profilePic: '',
   };
+  proceedLisener!: Subscription;
   constructor(
     private onboardService: OnboardService,
     private toastr: ToastrService
@@ -24,9 +25,11 @@ export class GetStartedComponent implements OnInit {
     this.userEmail$ = onboardService.userEmail$;
   }
   ngOnInit(): void {
-    this.onboardService.getStartedData().subscribe((data) => {
-      this.data = data;
-    });
+    this.proceedLisener = this.onboardService
+      .getStartedData()
+      .subscribe((data) => {
+        this.data = data;
+      });
     this.onboardService.proceed$.subscribe({ next: () => this.onProceed() });
   }
 
