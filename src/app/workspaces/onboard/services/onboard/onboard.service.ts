@@ -64,7 +64,9 @@ export class OnboardService {
         return {
           firstName: user?.profile?.basicDetails?.firstName ?? '',
           lastName: user?.profile?.basicDetails?.lastName ?? '',
-          profilePic: user?.profile?.basicDetails?.profilePic ?? '',
+          profilePic:
+            user?.profile?.basicDetails?.profilePic ??
+            'https://placehold.co/400x400/png',
         };
       })
     );
@@ -84,12 +86,10 @@ export class OnboardService {
     this.commonService.setContentLoader(true);
     this.profileService
       .updateBasicDetails(payload)
-      .pipe(mergeMap((data) => this.mapUserStatus<BasicDetails>(data)))
+      .pipe(mergeMap((data) => this.mapUserStatus()))
       .subscribe({
         next: (res) => {
-          const user = this.authService.user.value!;
-          user.profile!.basicDetails = res.data;
-          user.status = res.status;
+          const user = { ...res };
           this.authService.setUser(user);
           this.commonService.setContentLoader(false);
         },
@@ -106,14 +106,10 @@ export class OnboardService {
     this.commonService.setContentLoader(true);
     this.profileService
       .updateSocialHandles(data)
-      .pipe(
-        mergeMap((handles) => this.mapUserStatus<SocialMediaHandle[]>(handles))
-      )
+      .pipe(mergeMap((handles) => this.mapUserStatus()))
       .subscribe({
         next: (res) => {
-          const user = this.authService.user.value!;
-          user.profile!.socialMediaHandles = res.data;
-          user.status = res.status;
+          const user = { ...res };
           this.authService.setUser(user);
           this.commonService.setContentLoader(false);
         },
@@ -135,14 +131,13 @@ export class OnboardService {
       )!.link;
     this.profileService
       .updateSiteConfig(data)
-      .pipe(mergeMap((config) => this.mapUserStatus<SiteConfig>(config)))
+      .pipe(mergeMap((config) => this.mapUserStatus()))
       .subscribe({
         next: (res) => {
-          const user = this.authService.user.value!;
-          user.profile!.siteConfig = res.data;
-          user.status = res.status;
+          const user = { ...res };
           this.authService.setUser(user);
           this.commonService.setContentLoader(false);
+          this.parseProfile();
         },
         error: (err) => {
           this.commonService.setContentLoader(false);
@@ -150,11 +145,25 @@ export class OnboardService {
       });
   }
 
-  mapUserStatus<T>(data: T): Observable<{ status: UserStatus; data: T }> {
-    return this.profileService.getUserStatus().pipe(
-      map((status) => {
-        return { data: data, status };
+  mapUserStatus(): Observable<User> {
+    return this.profileService.getUser().pipe(
+      map((profile) => {
+        return profile;
       })
     );
+  }
+  parseProfile() {
+    this.profileService
+      .parseProfile()
+      .pipe(mergeMap((data) => this.mapUserStatus()))
+      .subscribe({
+        next: (res) => {
+          const user = { ...res };
+          this.authService.setUser(user);
+        },
+        error: (err) => {
+          // Handle error
+        },
+      });
   }
 }

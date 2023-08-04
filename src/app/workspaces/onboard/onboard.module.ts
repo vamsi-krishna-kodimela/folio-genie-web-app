@@ -11,6 +11,7 @@ import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configu
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
 import { FileUploadFieldComponent } from 'src/app/shared/components/file-upload-field/file-upload-field.component';
 import { OnboardService } from './services/onboard/onboard.service';
+import { ParseProfileComponent } from './pages/parse-profile/parse-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { OnboardService } from './services/onboard/onboard.service';
     ConnectSocialAccountsComponent,
     ConfigurePortfolioComponent,
     ChooseDesignComponent,
+    ParseProfileComponent,
   ],
   imports: [
     CommonModule,

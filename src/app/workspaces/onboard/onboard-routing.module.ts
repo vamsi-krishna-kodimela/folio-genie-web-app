@@ -7,6 +7,7 @@ import { ConnectSocialAccountsComponent } from './pages/connect-social-accounts/
 import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configure-portfolio.component';
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
 import { DashboardLayoutComponent } from 'src/app/shared/components/dashboard-layout/dashboard-layout.component';
+import { ParseProfileComponent } from './pages/parse-profile/parse-profile.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
         redirectTo: '/dashboard',
       },
     ],
+  },
+  {
+    path: 'parse-profile',
+    component: DashboardLayoutComponent,
+    children: [{ component: ParseProfileComponent, path: '' }],
   },
   {
     path: '',
@@ -49,6 +55,10 @@ const routes: Routes = [
       {
         path: 'choose-design',
         component: ChooseDesignComponent,
+      },
+      {
+        path: '**',
+        redirectTo: '/onboard/get-started',
       },
     ],
   },

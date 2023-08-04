@@ -51,4 +51,9 @@ export class ProfileService {
     const endpoint = this.endpoint + '/site-config';
     return this.http.post<SiteConfig>(endpoint, data);
   }
+
+  parseProfile() {
+    const endpoint = this.endpoint + '/parser/linkedin';
+    return this.http.get(endpoint);
+  }
 }

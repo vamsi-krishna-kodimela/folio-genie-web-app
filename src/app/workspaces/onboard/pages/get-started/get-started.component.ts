@@ -15,7 +15,7 @@ export class GetStartedComponent implements OnInit {
   data: GetStartedData = {
     firstName: '',
     lastName: '',
-    profilePic: '',
+    profilePic: 'https://placehold.co/400x400/png',
   };
   proceedLisener!: Subscription;
   constructor(

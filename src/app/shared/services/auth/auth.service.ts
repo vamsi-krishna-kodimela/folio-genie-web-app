@@ -23,9 +23,18 @@ export class AuthService {
     private profileService: ProfileService
   ) {
     this.user = new ReactiveValue<User | undefined>(true);
+    this.userListener();
     if (this.authToken) {
       this.getUser();
     }
+  }
+
+  userListener() {
+    this.user.value$.subscribe((user) => {
+      if (user) {
+        this.handleUserOnboarding(user.status, user.isProfileCompleted);
+      }
+    });
   }
 
   authenticateUser(email: string, password: string) {
@@ -37,7 +46,6 @@ export class AuthService {
         delete res.token;
         this.user.value = res;
         this.commonService.setContentLoader(false);
-        this.handleUserOnboarding(res.status, res.isProfileCompleted);
         this.toastrService.success('Logged in successfully');
       },
       error: (err) => {
@@ -61,7 +69,6 @@ export class AuthService {
     this.profileService.getUser().subscribe({
       next: (res: User) => {
         this.user.value = res;
-        this.handleUserOnboarding(res.status, res.isProfileCompleted);
         this.commonService.setContentLoader(false);
       },
       error: (err) => {
@@ -88,6 +95,9 @@ export class AuthService {
         break;
       case UserStatus.CONNECT_SOCIAL:
         route += 'configure-website';
+        break;
+      case UserStatus.CONFIGURE_WEBSITE:
+        route += 'parse-profile';
         break;
       case UserStatus.PARSING:
         if (isParsingDone) {

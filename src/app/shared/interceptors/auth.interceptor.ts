@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
@@ -22,7 +22,15 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: any) => {
+        if (error.status === 401) {
+          this.cookies.deleteAll();
+          location.href = '/';
+        }
+        return of(error.message);
+      })
+    );
   }
   get authToken(): string | null {
     return this.cookies.get('token');
