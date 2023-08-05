@@ -10,7 +10,7 @@ export const onboardGuard: CanActivateFn = (
   const router = inject(Router);
   if (authService.user.value?.status) {
     const status = authService.user.value?.status;
-    const actualRoute = authService.handleUserOnboarding(status);
+    const actualRoute = authService.handleUserOnboarding(status, false);
     if (state.url.includes(actualRoute)) {
       return true;
     }
