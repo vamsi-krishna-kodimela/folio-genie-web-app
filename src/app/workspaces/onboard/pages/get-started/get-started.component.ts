@@ -17,7 +17,7 @@ export class GetStartedComponent implements OnInit {
     lastName: '',
     profilePic: 'https://placehold.co/400x400/png',
   };
-  proceedLisener!: Subscription;
+  subscriptions: Subscription[] = [];
   constructor(
     private onboardService: OnboardService,
     private toastr: ToastrService
@@ -25,12 +25,8 @@ export class GetStartedComponent implements OnInit {
     this.userEmail$ = onboardService.userEmail$;
   }
   ngOnInit(): void {
-    this.proceedLisener = this.onboardService
-      .getStartedData()
-      .subscribe((data) => {
-        this.data = data;
-      });
-    this.onboardService.proceed$.subscribe({ next: () => this.onProceed() });
+    this.subscriptions.push(this.fetchGetStartedData());
+    this.subscriptions.push(this.listenProceed());
   }
 
   onProceed() {
@@ -47,6 +43,18 @@ export class GetStartedComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  fetchGetStartedData() {
+    return this.onboardService.getStartedData().subscribe((data) => {
+      this.data = data;
+    });
+  }
+
+  listenProceed() {
+    return this.onboardService.proceed$.subscribe({
+      next: () => this.onProceed(),
+    });
   }
 }
 

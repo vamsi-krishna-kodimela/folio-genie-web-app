@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SOCIAL_ACCOUNTS } from '../../data/social-accounts.data';
 import { OnboardService } from '../../services/onboard/onboard.service';
 import { SocialMediaHandle } from 'src/app/shared/types';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-connect-social-accounts',
   templateUrl: './connect-social-accounts.component.html',
   styleUrls: ['./connect-social-accounts.component.scss'],
 })
-export class ConnectSocialAccountsComponent {
+export class ConnectSocialAccountsComponent implements OnInit, OnDestroy {
   handles: SocialMediaHandle[] = [];
+  subscriptions: Subscription[] = [];
   constructor(
     private onboardService: OnboardService,
     private toastr: ToastrService
@@ -18,13 +20,21 @@ export class ConnectSocialAccountsComponent {
     this.handles = [...SOCIAL_ACCOUNTS];
   }
   ngOnInit(): void {
-    this.onboardService.fetchSocialHandles().subscribe((res) => {
+    this.subscriptions.push(this.fetchHandles());
+    this.subscriptions.push(this.listenProceed());
+  }
+
+  fetchHandles() {
+    return this.onboardService.fetchSocialHandles().subscribe((res) => {
       this.handles.forEach((handle) => {
         handle.link =
           res.find((item) => handle.handle == item.handle)?.link ?? '';
       });
     });
-    this.onboardService.proceed$.subscribe(this.saveHandles.bind(this));
+  }
+
+  listenProceed() {
+    return this.onboardService.proceed$.subscribe(this.saveHandles.bind(this));
   }
 
   saveHandles() {
@@ -43,5 +53,12 @@ export class ConnectSocialAccountsComponent {
     return !this.handles.some(
       (handle) => handle.isChecked && handle.link == ''
     );
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
   }
 }

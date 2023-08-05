@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Template } from 'src/app/shared/types/common/template.interface';
+import { OnboardService } from '../../services/onboard/onboard.service';
+import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-choose-design',
@@ -7,63 +11,44 @@ import { Component } from '@angular/core';
 })
 export class ChooseDesignComponent {
   selectedTemplate?: string;
-  templates: Template[] = [
-    {
-      id: '1',
-      title: 'Template 1',
-      image: 'template1.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '2',
-      title: 'Template 2',
-      image: 'template2.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '3',
-      title: 'Template 3',
-      image: 'template3.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '4',
-      title: 'Template 4',
-      image: 'template4.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '5',
-      title: 'Template 5',
-      image: 'template5.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '6',
-      title: 'Template 6',
-      image: 'template6.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-    {
-      id: '7',
-      title: 'Template 7',
-      image: 'template7.png',
-      demoLink: 'https://folio-genie.web.app',
-    },
-  ];
+  subscriptions: Subscription[] = [];
+  templates: Template[] = [];
+
+  constructor(
+    private onboardService: OnboardService,
+    private toastr: ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    this.templates = this.onboardService.getTemplates();
+    this.subscriptions.push(this.listenProceed());
+  }
 
   selectTemplate(template: Template): void {
     this.selectedTemplate = template.id;
   }
+
   previewTemplate(event: Event, template: Template): void {
     window.open(template.demoLink, '_blank');
     event.stopPropagation();
   }
-}
 
-interface Template {
-  id: string;
-  title: string;
-  image: string;
-  demoLink: string;
+  listenProceed(): Subscription {
+    return this.onboardService.proceed$.subscribe(() => {
+      this.saveTemplate();
+    });
+  }
+
+  saveTemplate() {
+    if (this.selectedTemplate != null) {
+      this.onboardService.updateSelectedTemplate(this.selectedTemplate);
+    } else {
+      this.toastr.error('Please select a template');
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+  
 }

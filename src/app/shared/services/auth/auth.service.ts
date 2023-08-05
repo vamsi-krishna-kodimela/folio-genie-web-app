@@ -107,7 +107,7 @@ export class AuthService {
         }
         break;
       case UserStatus.CHOOSE_DESIGN:
-        route += 'preview';
+        route += 'preview/';
         break;
 
       default:

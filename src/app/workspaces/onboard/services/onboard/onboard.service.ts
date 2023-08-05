@@ -14,6 +14,7 @@ import { UserStatus } from 'src/app/shared/types/user/user-status.enum';
 import { ProfileService } from 'src/app/shared/services/profile/profile.service';
 import { CommonService } from 'src/app/shared/services/common/common.service';
 import { PROFESSIONS } from '../../data/professions.data';
+import { PORTFOLIO_TEMPLATES } from '../../data/portfolio-templates.data';
 
 @Injectable()
 export class OnboardService {
@@ -41,6 +42,10 @@ export class OnboardService {
 
   setOnboardSteps() {
     this.onboardSteps = [...ONBOARD_STEPS];
+  }
+
+  getTemplates() {
+    return [...PORTFOLIO_TEMPLATES];
   }
 
   setProfessions() {
@@ -138,6 +143,25 @@ export class OnboardService {
           this.authService.setUser(user);
           this.commonService.setContentLoader(false);
           this.parseProfile();
+        },
+        error: (err) => {
+          this.commonService.setContentLoader(false);
+        },
+      });
+  }
+
+  updateSelectedTemplate(templateId: string) {
+    this.commonService.setContentLoader(true);
+    const data = this.authService.user.value!.profile!.siteConfig;
+    data.templateId = templateId;
+    this.profileService
+      .updateSiteConfig(data)
+      .pipe(mergeMap((config) => this.mapUserStatus()))
+      .subscribe({
+        next: (res) => {
+          const user = { ...res };
+          this.authService.setUser(user);
+          this.commonService.setContentLoader(false);
         },
         error: (err) => {
           this.commonService.setContentLoader(false);
