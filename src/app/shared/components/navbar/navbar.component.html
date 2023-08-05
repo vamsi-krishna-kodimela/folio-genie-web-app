@@ -1,3 +1,24 @@
 <mat-toolbar>
   <div class="brand-logo" title="Folio Genie"></div>
+  <div class="actions">
+    <div
+      class="user-img"
+      *ngIf="user"
+      [ngStyle]="{ backgroundImage: 'url(' + profilePicture + ')' }"
+      [title]="name"
+      (click)="toggleActions($event)"
+    >
+      <ul class="user-actions" *ngIf="showActions">
+        <li>My Account</li>
+        <li>Logout</li>
+      </ul>
+    </div>
+    <button
+      mat-icon-button
+      aria-label="Know About Folio Genie"
+      class="icon-button"
+    >
+      <mat-icon color="primary">help_outline</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

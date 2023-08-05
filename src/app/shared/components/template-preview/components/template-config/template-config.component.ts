@@ -9,7 +9,7 @@ import { Section } from '../../interfaces/section.interface';
 export class TemplateConfigComponent {
   openedPanels: number[] = [];
   @Input() configuration: Section[] = [];
-  @Input() toggle: boolean = false;
+  @Input() toggle: boolean = true;
   toggleConfig() {
     this.toggle = !this.toggle;
   }
