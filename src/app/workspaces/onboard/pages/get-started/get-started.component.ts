@@ -15,7 +15,7 @@ export class GetStartedComponent implements OnInit {
   data: GetStartedData = {
     firstName: '',
     lastName: '',
-    profilePic: 'https://placehold.co/400x400/png',
+    profilePic: '/assets/images/common/user-placeholder.png',
   };
   subscriptions: Subscription[] = [];
   constructor(
