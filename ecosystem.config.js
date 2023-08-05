@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "FolioGenie Web App",
-      script: "ng serve",
+      script: "ng serve --host 0.0.0.0 --port 4200",
     },
   ],
 };
