@@ -60,8 +60,10 @@ export class AuthService {
   }
 
   logout() {
-    this.cookies.delete('token');
+    console.log(this.cookies.getAll());
+    this.cookies.deleteAll();
     this.user.value = undefined;
+    this.router.navigateByUrl('/');
   }
 
   getUser() {

@@ -10,7 +10,7 @@
     >
       <ul class="user-actions" *ngIf="showActions">
         <li>My Account</li>
-        <li>Logout</li>
+        <li (click)="logout()">Logout</li>
       </ul>
     </div>
     <button

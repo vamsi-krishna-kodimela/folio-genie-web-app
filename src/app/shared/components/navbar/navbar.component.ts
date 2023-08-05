@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../../services';
 import { Subscription } from 'rxjs';
 import { User } from '../../types';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +22,10 @@ export class NavbarComponent {
       event.preventDefault();
     }
   }
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private cookies: CookieService
+  ) {}
   ngOnInit(): void {
     this.authService.user.value$.subscribe((user) => {
       this.user = user;
@@ -41,5 +45,10 @@ export class NavbarComponent {
     this.showActions = !this.showActions;
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  logout(): void {
+    this.showActions = false;
+    this.authService.logout();
   }
 }
