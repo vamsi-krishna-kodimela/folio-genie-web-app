@@ -32,6 +32,10 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
     return this.authService.user.value$.subscribe((user) => {
       if (user) {
         this.config.userId = user?._id;
+        this.config.siteTitle =
+          (user?.profile?.basicDetails?.firstName ?? '') +
+          ' ' +
+          (user?.profile?.basicDetails?.lastName ?? '');
         if (user.profile?.siteConfig) {
           this.config = { ...user.profile.siteConfig };
         }

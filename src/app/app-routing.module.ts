@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'onboard',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./workspaces/onboard/onboard.module').then(
         (m) => m.OnboardModule

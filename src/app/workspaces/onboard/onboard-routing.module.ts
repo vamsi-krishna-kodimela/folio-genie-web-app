@@ -8,6 +8,7 @@ import { ConfigurePortfolioComponent } from './pages/configure-portfolio/configu
 import { ChooseDesignComponent } from './pages/choose-design/choose-design.component';
 import { DashboardLayoutComponent } from 'src/app/shared/components/dashboard-layout/dashboard-layout.component';
 import { ParseProfileComponent } from './pages/parse-profile/parse-profile.component';
+import { onboardGuard } from './guards/onboard.guard';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
   {
     path: '',
     component: OnboardLayoutComponent,
+    canActivate: [onboardGuard],
     children: [
       {
         path: 'get-started',

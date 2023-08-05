@@ -32,7 +32,7 @@ export class AuthService {
   userListener() {
     this.user.value$.subscribe((user) => {
       if (user) {
-        this.handleUserOnboarding(user.status, user.isProfileCompleted);
+        this.handleUserOnboarding(user.status);
       }
     });
   }
@@ -81,7 +81,7 @@ export class AuthService {
     this.user.value = data;
   }
 
-  handleUserOnboarding(status: UserStatus, isParsingDone: boolean) {
+  handleUserOnboarding(status: UserStatus, navigate: boolean = true) {
     let route = '/onboard/';
     switch (status) {
       case UserStatus.NEW:
@@ -97,24 +97,24 @@ export class AuthService {
         route += 'configure-website';
         break;
       case UserStatus.CONFIGURE_WEBSITE:
+      case UserStatus.PARSING:
         route += 'parse-profile';
         break;
-      case UserStatus.PARSING:
-        if (isParsingDone) {
-          route += 'choose-design';
-        } else {
-          route += 'parse-profile';
-        }
+      case UserStatus.PARSING_DONE:
+        route += 'choose-design';
         break;
       case UserStatus.CHOOSE_DESIGN:
-        route += 'preview/';
+        route += 'preview/' + this.user.value?.profile.siteConfig.templateId;
         break;
 
       default:
         route = '/';
         break;
     }
-    this.router.navigateByUrl(route);
+    if (navigate) {
+      this.router.navigateByUrl(route);
+    }
+    return route;
   }
 
   getUserStatus$(): Observable<UserStatus> {

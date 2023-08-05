@@ -18,6 +18,7 @@ const ONBOARD_STEPS: OnboardStep[] = [
       UserStatus.CONNECT_SOCIAL,
       UserStatus.CONFIGURE_WEBSITE,
       UserStatus.PARSING,
+      UserStatus.PARSING_DONE,
     ],
     cta: 'Fetch Profile',
   },

@@ -7,9 +7,19 @@ import { Section } from '../../interfaces/section.interface';
   styleUrls: ['./template-config.component.scss'],
 })
 export class TemplateConfigComponent {
+  openedPanels: number[] = [];
   @Input() configuration: Section[] = [];
   @Input() toggle: boolean = false;
   toggleConfig() {
     this.toggle = !this.toggle;
+  }
+  onOpen(index: number) {
+    this.openedPanels.push(index);
+  }
+  onClose(index: number) {
+    const position = this.openedPanels.indexOf(index);
+    if (position > -1) {
+      this.openedPanels.splice(position, 1);
+    }
   }
 }

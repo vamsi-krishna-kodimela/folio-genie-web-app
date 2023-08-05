@@ -7,12 +7,21 @@
   </div>
   <div class="template-config__list">
     <mat-accordion class="template-config__list-item">
-      <mat-expansion-panel hideToggle *ngFor="let section of configuration">
+      <mat-expansion-panel
+        hideToggle
+        *ngFor="let section of configuration; let $index = index"
+        (opened)="onOpen($index)"
+        (closed)="onClose($index)"
+      >
         <mat-expansion-panel-header>
           <mat-panel-title class="header">
             <h3 class="title">{{ section.sectionTitle }}</h3>
-
-            <feather-icon name="chevron-down" class="icon"></feather-icon>
+            <feather-icon
+              [name]="
+                openedPanels.includes($index) ? 'chevron-up' : 'chevron-down'
+              "
+              class="icon"
+            ></feather-icon>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>This is the primary content of the panel.</p>
