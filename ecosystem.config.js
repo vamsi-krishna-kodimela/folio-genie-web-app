@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "FolioGenie Web App",
-      script: "http-server-spa ./dist/folio-genie-web-app index.html 4200",
+      script: "serve 4200 --spa",
     },
   ],
 };
