@@ -1,0 +1,15 @@
+<div id="gjs"></div>
+
+<div class="template-edior__holder-modes">
+  <div
+    class="template-edior__holder-modes-item"
+    *ngFor="let device of devices"
+    [ngClass]="{
+      'template-edior__holder-modes-item--active':
+        device.device == selectedDevice
+    }"
+    (click)="switchDevice(device.device)"
+  >
+    <i-feather [name]="device.icon" class="icon"></i-feather>
+  </div>
+</div>

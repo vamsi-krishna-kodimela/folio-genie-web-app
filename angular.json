@@ -24,8 +24,15 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "src/styles.scss",
+              "node_modules/grapesjs/dist/css/grapes.min.css"
+            ],
+            "scripts": [
+              "node_modules/grapesjs/dist/grapes.min.js",
+              "node_modules/grapesjs-preset-webpage/dist/index.js",
+              "node_modules/grapesjs-blocks-basic/dist/index.js"
+            ]
           },
           "configurations": {
             "production": {
