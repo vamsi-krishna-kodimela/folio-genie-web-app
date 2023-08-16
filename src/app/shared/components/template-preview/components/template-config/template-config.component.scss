@@ -87,10 +87,11 @@
         }
       }
     }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   &--collapse {
-    // right: auto;
-    // left: calc(100% - 60px);
     transform: translateX(calc(100% - 60px));
   }
 }

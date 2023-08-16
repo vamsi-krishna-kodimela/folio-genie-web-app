@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import grapesjs from 'grapesjs';
 import { SharedModule } from '../shared/shared.module';
+import { EditorService } from '../shared/services/editor/editor.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-template-editor',
@@ -10,7 +12,10 @@ import { SharedModule } from '../shared/shared.module';
   templateUrl: './template-editor.component.html',
   styleUrls: ['./template-editor.component.scss'],
 })
-export class TemplateEditorComponent {
+export class TemplateEditorComponent implements AfterViewInit {
+  content: string = '';
+  editorChangeListener!: Subscription;
+
   private editor: any;
   devices: {
     name: string;
@@ -34,6 +39,7 @@ export class TemplateEditorComponent {
     },
   ];
   selectedDevice: DEVICE = DEVICE.Desktop;
+  constructor(private editorService: EditorService) {}
   ngOnInit() {
     this.editor = grapesjs.init({
       container: '#gjs',
@@ -48,9 +54,11 @@ export class TemplateEditorComponent {
     this.editor.DomComponents.getWrapper().set({
       ...DISABLE_COMPONENTS,
     });
-    this.editor.addComponents({
-      content: this.content + this.content + this.content,
-      ...DISABLE_COMPONENTS,
+    this.editorChangeListener = this.editorService.editorChange.subscribe({
+      next: (val) => {
+        this.content = val;
+        this.setComponent(val);
+      },
     });
   }
   switchDevice(device: DEVICE) {
@@ -58,46 +66,18 @@ export class TemplateEditorComponent {
     this.editor.setDevice(device);
   }
 
-  content: string = `  Sample HTML Code
-  <h1>
-    <span style="font-size: 1.5rem; color: #000000"
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      voluptatibus, quibusdam, quia, voluptatum voluptatem quod exercitationem
-      quos doloribus quas voluptates natus. Quisquam voluptatibus, quibusdam,
-      quia, voluptatum voluptatem quod exercitationem quos doloribus quas
-      voluptates natus.</span
-    >
-  </h1>
-
-  <p>
-    <span style="font-size: 1.5rem; color: #000000"
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      voluptatibus, quibusdam, quia, voluptatum voluptatem quod exercitationem
-      quos doloribus quas voluptates natus. Quisquam voluptatibus, quibusdam,
-      quia, voluptatum voluptatem quod exercitationem quos doloribus quas
-      voluptates natus.</span
-    >
-  </p>
-
-  <p>
-    <span style="font-size: 1.5rem; color: #000000"
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      voluptatibus, quibusdam, quia, voluptatum voluptatem quod exercitationem
-      quos doloribus quas voluptates natus. Quisquam voluptatibus, quibusdam,
-      quia, voluptatum voluptatem quod exercitationem quos doloribus quas
-      voluptates natus.</span
-    >
-  </p>
-
-  <p>
-    <span style="font-size: 1.5rem; color: #000000"
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-      voluptatibus, quibusdam, quia, voluptatum voluptatem quod exercitationem
-      quos doloribus quas voluptates natus. Quisquam voluptatibus, quibusdam,
-      quia, voluptatum voluptatem quod exercitationem quos doloribus quas
-      voluptates natus.</span
-    >
-  </p>`;
+  setComponent(val: String) {
+    if (this.editor) {
+      this.editor.DomComponents.clear();
+      this.editor.addComponents({
+        content: val,
+        ...DISABLE_COMPONENTS,
+      });
+    }
+  }
+  ngAfterViewInit(): void {
+    this.setComponent(this.content);
+  }
 }
 
 enum DEVICE {

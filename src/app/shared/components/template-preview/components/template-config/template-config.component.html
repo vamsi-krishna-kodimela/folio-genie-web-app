@@ -9,7 +9,7 @@
     <mat-accordion class="template-config__list-item">
       <mat-expansion-panel
         hideToggle
-        *ngFor="let section of configuration; let $index = index"
+        *ngFor="let section of configurations; let $index = index"
         (opened)="onOpen($index)"
         (closed)="onClose($index)"
       >
@@ -25,6 +25,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>This is the primary content of the panel.</p>
+        <!---Field Types Required-->
       </mat-expansion-panel>
     </mat-accordion>
   </div>
