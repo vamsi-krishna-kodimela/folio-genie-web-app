@@ -8,10 +8,6 @@ RUN npm install -g @angular/cli
 
 RUN npm install --force
 
-RUN npm run build
-
-FROM nginx:latest AS bas
-
-COPY --from=build /usr/src/app/dist/folio-genie-web-app /usr/share/nginx/html
+CMD [ "ng","serve","--port","8080" ]
 
 EXPOSE 8080
