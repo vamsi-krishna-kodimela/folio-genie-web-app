@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine AS build
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ RUN npm install --force
 
 RUN npm run build
 
-FROM nginx:latest
+FROM nginx:latest AS bas
 
 COPY --from=build /usr/src/app/dist/folio-genie-web-app /usr/share/nginx/html
 
