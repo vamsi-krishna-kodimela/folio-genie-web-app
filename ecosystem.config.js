@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "FolioGenie Web App",
-      script: "serve",
+      script: "npm run serve",
       env: {
         NODE_ENV: "production",
         PM2_SERVE_PATH: './dist/folio-genie-web-app',
