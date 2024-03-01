@@ -1,13 +1,17 @@
-FROM node:alpine AS build
+FROM node:latest as build
 
-WORKDIR /usr/src/app
+WORKDIR /usr/local/app
 
-COPY . /usr/src/app
+COPY ./ /usr/local/app/
 
 RUN npm install -g @angular/cli
 
 RUN npm install --force
 
-CMD [ "ng","serve","--port","8080" ]
+RUN npm run build
 
-EXPOSE 8080
+FROM nginx:latest
+
+COPY --from=build /usr/local/app/dist/folio-genie-web-app /usr/share/nginx/html
+
+EXPOSE 80
