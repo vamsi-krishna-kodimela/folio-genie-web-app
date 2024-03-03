@@ -38,6 +38,7 @@ export class AuthService {
   }
 
   authenticateUser(email: string, password: string) {
+    if (!this.validateEmail(email) || !this.validatePassword(password)) return;
     this.commonService.setContentLoader(true);
     this.profileService.authenticate(email, password).subscribe({
       next: (res: User) => {
@@ -46,7 +47,7 @@ export class AuthService {
         delete res.token;
         this.user.value = res;
         this.commonService.setContentLoader(false);
-        this.toastrService.success('Logged in successfully');
+        this.toastrService.success('Logged in successfully!');
       },
       error: (err) => {
         this.commonService.setContentLoader(false);
@@ -55,12 +56,58 @@ export class AuthService {
     });
   }
 
+  validateEmail(email: string) {
+    if (!email) {
+      this.toastrService.error('Email is required!');
+      return false;
+    }
+    if (!email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+      this.toastrService.error('Invalid email!');
+      return false;
+    }
+    return true;
+  }
+
+  validatePassword(password: string) {
+    if (!password) {
+      this.toastrService.error('Password is required!');
+      return false;
+    }
+    if (password.length < 8) {
+      this.toastrService.error('Password must be at least 8 characters long!');
+      return false;
+    }
+    if (!password.match(/[a-z]/)) {
+      this.toastrService.error(
+        'Password must contain at least one lowercase letter!'
+      );
+      return false;
+    }
+    if (!password.match(/[A-Z]/)) {
+      this.toastrService.error(
+        'Password must contain at least one uppercase letter!'
+      );
+      return false;
+    }
+    if (!password.match(/[0-9]/)) {
+      this.toastrService.error('Password must contain at least one number!');
+      return false;
+    }
+    if (!password.match(/[^a-zA-Z0-9]/)) {
+      this.toastrService.error(
+        'Password must contain at least one special character!'
+      );
+      return false;
+    }
+
+    return true;
+  }
+
   get authToken(): string | null {
     return this.cookies.get('token');
   }
 
   logout() {
-    console.log(this.cookies.getAll());
     this.cookies.deleteAll();
     this.user.value = undefined;
     this.router.navigateByUrl('/');

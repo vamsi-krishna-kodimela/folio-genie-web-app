@@ -1,18 +1,17 @@
 <app-navbar></app-navbar>
 <form class="login-form" (submit)="authenticateUser($event)">
-  <div class="login-form__title">Log in</div>
-  <app-customfield label="Email" [(value)]="email"></app-customfield>
-  <app-customfield label="Password" [(value)]="password"></app-customfield>
+  <div class="login-form__title">Log in or Sign Up in seconds</div>
+  <app-customfield label="Email" [(value)]="email" placeholder="tim@example.com"></app-customfield>
+  <app-customfield label="Password" [(value)]="password" placeholder="Secure password"></app-customfield>
   <button
     type="submit"
     mat-flat-button
     color="primary"
     class="login-form__button"
   >
-    Log in
+    Proceed
   </button>
 </form>
 <div class="login-hints">
   <a class="login-hints__hint"> Forgot password? </a>
-  <a class="login-hints__hint">Don't have an account? Sign up</a>
 </div>
