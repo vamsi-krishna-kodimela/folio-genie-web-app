@@ -23,6 +23,10 @@ const routes: Routes = [
         (m) => m.OnboardModule
       ),
   },
+  {
+    path: '**',
+    redirectTo: 'auth',
+  },
 ];
 
 @NgModule({
