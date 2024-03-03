@@ -46,12 +46,13 @@ export class AuthService {
         this.cookies.set('token', token!);
         delete res.token;
         this.user.value = res;
-        this.commonService.setContentLoader(false);
         this.toastrService.success('Logged in successfully!');
       },
       error: (err) => {
-        this.commonService.setContentLoader(false);
         this.toastrService.error(err.error.message);
+      },
+      complete: () => {
+        this.commonService.setContentLoader(false);
       },
     });
   }
