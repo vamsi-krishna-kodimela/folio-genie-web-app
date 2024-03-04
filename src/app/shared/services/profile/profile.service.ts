@@ -39,7 +39,6 @@ export class ProfileService {
     return this.http.post<SocialMediaHandle[]>(endpoint, data);
   }
   getUserStatus() {
-    // ToDo: Implement with API
     return this.getUser().pipe(map((data) => data.status));
   }
 
@@ -50,10 +49,5 @@ export class ProfileService {
   updateSiteConfig(data: SiteConfig) {
     const endpoint = this.endpoint + '/site-config';
     return this.http.post<SiteConfig>(endpoint, data);
-  }
-
-  parseProfile() {
-    const endpoint = this.endpoint + '/parser/linkedin';
-    return this.http.get(endpoint);
   }
 }

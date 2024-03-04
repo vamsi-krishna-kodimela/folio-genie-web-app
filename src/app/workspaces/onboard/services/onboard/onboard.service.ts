@@ -15,6 +15,8 @@ import { ProfileService } from 'src/app/shared/services/profile/profile.service'
 import { CommonService } from 'src/app/shared/services/common/common.service';
 import { PROFESSIONS } from '../../data/professions.data';
 import { PORTFOLIO_TEMPLATES } from '../../data/portfolio-templates.data';
+import { ToastrService } from 'ngx-toastr';
+import { ParserService } from 'src/app/shared/services/parser/parser.service';
 
 @Injectable()
 export class OnboardService {
@@ -29,7 +31,9 @@ export class OnboardService {
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private toastrService: ToastrService,
+    private parserService: ParserService
   ) {
     this.profile$ = authService.user.value$;
     this.userStatus$ = authService.getUserStatus$();
@@ -99,6 +103,7 @@ export class OnboardService {
           this.commonService.setContentLoader(false);
         },
         error: (err) => {
+          this.toastrService.error(err.error.message);
           this.commonService.setContentLoader(false);
         },
       });
@@ -119,6 +124,7 @@ export class OnboardService {
           this.commonService.setContentLoader(false);
         },
         error: (err) => {
+          this.toastrService.error(err.error.message);
           this.commonService.setContentLoader(false);
         },
       });
@@ -145,6 +151,7 @@ export class OnboardService {
           this.parseProfile();
         },
         error: (err) => {
+          this.toastrService.error(err.error.message);
           this.commonService.setContentLoader(false);
         },
       });
@@ -164,6 +171,7 @@ export class OnboardService {
           this.commonService.setContentLoader(false);
         },
         error: (err) => {
+          this.toastrService.error(err.error.message);
           this.commonService.setContentLoader(false);
         },
       });
@@ -177,7 +185,7 @@ export class OnboardService {
     );
   }
   parseProfile() {
-    this.profileService
+    this.parserService
       .parseProfile()
       .pipe(mergeMap((data) => this.mapUserStatus()))
       .subscribe({
@@ -186,7 +194,7 @@ export class OnboardService {
           this.authService.setUser(user);
         },
         error: (err) => {
-          // Handle error
+          this.toastrService.error(err.error.message);
         },
       });
   }
