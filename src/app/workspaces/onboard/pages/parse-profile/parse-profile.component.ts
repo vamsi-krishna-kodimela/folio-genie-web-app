@@ -18,17 +18,16 @@ export class ParseProfileComponent implements OnInit {
   }
 
   getParserStatus() {
-    this.parserService.getParserStatus().subscribe({
-      next: (status) => {
-        if (!status.isJobDone) {
-          setTimeout(() => {
+    setTimeout(() => {
+      this.parserService.getParserStatus().subscribe({
+        next: (status) => {
+          if (!status.isJobDone) {
             this.getParserStatus();
-          }, 100);
-        } else {
-          // this.onboardService.mapUserStatus();
-          location.reload();
-        }
-      },
-    });
+          } else {
+            location.reload();
+          }
+        },
+      });
+    }, 1000);
   }
 }
