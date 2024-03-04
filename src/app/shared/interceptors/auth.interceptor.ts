@@ -27,8 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           this.cookies.deleteAll();
           location.href = '/';
+          return of(error.message);
         }
-        return of(error.message);
+        return throwError(() => error);
       })
     );
   }
