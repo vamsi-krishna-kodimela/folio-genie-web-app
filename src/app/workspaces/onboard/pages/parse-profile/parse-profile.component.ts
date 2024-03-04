@@ -27,6 +27,9 @@ export class ParseProfileComponent implements OnInit {
             location.reload();
           }
         },
+        error: (_) => {
+          this.getParserStatus();
+        },
       });
     }, 1000);
   }
