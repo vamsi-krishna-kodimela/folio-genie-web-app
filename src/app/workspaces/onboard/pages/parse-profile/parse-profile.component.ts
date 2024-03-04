@@ -25,7 +25,8 @@ export class ParseProfileComponent implements OnInit {
             this.getParserStatus();
           }, 100);
         } else {
-          this.onboardService.mapUserStatus();
+          // this.onboardService.mapUserStatus();
+          location.reload();
         }
       },
     });
