@@ -31,6 +31,6 @@ export class ParseProfileComponent implements OnInit {
           this.getParserStatus();
         },
       });
-    }, 1000);
+    }, 20000);
   }
 }
