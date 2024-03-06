@@ -196,4 +196,8 @@ export class OnboardService {
         },
       });
   }
+
+  validatePortfolioHandle(handle: string) {
+    return this.profileService.validateHandle(handle);
+  }
 }

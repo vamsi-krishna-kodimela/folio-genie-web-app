@@ -6,10 +6,16 @@
   ></app-customfield>
   <app-customfield label="Tagline"></app-customfield>
   <app-customfield
+    [required]="true"
     label="Portfolio Handle"
-    sufixIcon="check"
-    sufixIconColor="green"
+    [sufixIcon]="handleValidationProgress ? 'loader' : handleStateIndicator"
+    [sufixIconColor]="handleValidationProgress ? 'blue' : handleStateColor"
+    [ngClass]="{ 'rotate-sufix-icon': handleValidationProgress }"
     [(value)]="config.portfolioHandle"
+    (valueChange)="onHandleChange($event)"
   ></app-customfield>
-  <app-file-upload-field label="Upload Fav Icon"></app-file-upload-field>
+  <app-file-upload-field
+    label="Upload Fav Icon"
+    [(fileUrl)]="config.favicon"
+  ></app-file-upload-field>
 </form>

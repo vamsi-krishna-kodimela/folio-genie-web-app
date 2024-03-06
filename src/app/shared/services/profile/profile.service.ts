@@ -50,4 +50,8 @@ export class ProfileService {
     const endpoint = this.endpoint + '/site-config';
     return this.http.post<SiteConfig>(endpoint, data);
   }
+  validateHandle(handle: string) {
+    const endpoint = this.endpoint + '/site-config/validate-handle';
+    return this.http.post<{ isValid: boolean }>(endpoint, { handle });
+  }
 }
