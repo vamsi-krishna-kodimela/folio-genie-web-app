@@ -5,8 +5,17 @@
     (change)="onFileChange($event)"
     appDnd
   />
-  <div class="file-upload-field__icon">
-    <feather-icon name="upload" class="icon"></feather-icon>
+  <div
+    class="file-upload-field__icon"
+    [ngStyle]="{ backgroundImage: fileUrl ? 'url(' + fileUrl + ')' : 'none' }"
+  >
+    <feather-icon
+      [name]="isUploading ? 'loader' : 'upload'"
+      class="icon"
+      [ngClass]="{ 'icon--animate': isUploading }"
+    ></feather-icon>
   </div>
-  <div class="file-upload-field__label">{{ label }}</div>
+  <div class="file-upload-field__label">
+    {{ isUploading ? "Uploading..." : label }}
+  </div>
 </div>

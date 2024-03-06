@@ -73,9 +73,7 @@ export class OnboardService {
         return {
           firstName: user?.profile?.basicDetails?.firstName ?? '',
           lastName: user?.profile?.basicDetails?.lastName ?? '',
-          profilePic:
-            user?.profile?.basicDetails?.profilePic ??
-            'https://placehold.co/400x400/png',
+          profilePic: user?.profile?.basicDetails?.profilePic,
         };
       })
     );

@@ -13,7 +13,6 @@ export class GetStartedComponent implements OnInit {
   data: GetStartedData = {
     firstName: '',
     lastName: '',
-    profilePic: '/assets/images/common/user-placeholder.png',
   };
   subscriptions: Subscription[] = [];
   constructor(

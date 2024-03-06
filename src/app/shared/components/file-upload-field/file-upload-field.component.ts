@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared.module';
 import { DndDirective } from '../../directives/dnd.directive';
 import { FileUploadService } from '../../services/file-upload/file-upload.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-file-upload-field',
@@ -13,25 +14,42 @@ import { FileUploadService } from '../../services/file-upload/file-upload.servic
   providers: [FileUploadService],
 })
 export class FileUploadFieldComponent {
-  @Input() label: string = '';
+  isUploading: boolean = false;
 
+  @Input() label: string = '';
   @Input('fileUrl') _fileUrl?: string;
   set fileUrl(value: string | undefined) {
     this._fileUrl = value;
     this.fileUrlChange.emit(this._fileUrl);
   }
+
+  get fileUrl(): string | undefined {
+    return this._fileUrl;
+  }
   @Output() fileUrlChange: EventEmitter<string | undefined> = new EventEmitter<
     string | undefined
   >();
 
-  constructor(private fileUploadService: FileUploadService) {}
+  constructor(
+    private fileUploadService: FileUploadService,
+    private toastrService: ToastrService
+  ) {}
 
   onFileChange(event: any) {
     const files = event.target.files;
     if (files.length > 0) {
       const file = files[0];
-      this.fileUploadService.uploadFile(file).subscribe((res) => {
-        this.fileUrl = res.url;
+      this.isUploading = true;
+      this.fileUploadService.uploadFile(file).subscribe({
+        next: (res) => {
+          this.fileUrl = res.url;
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.message);
+        },
+        complete: () => {
+          this.isUploading = false;
+        },
       });
     }
   }
