@@ -46,6 +46,7 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
         },
         error: (_) => {
           this.isHandleValid = false;
+          this.handleValidationProgress = false;
         },
         complete: () => {
           this.handleValidationProgress = false;
