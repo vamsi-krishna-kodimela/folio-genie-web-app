@@ -19,9 +19,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    @media screen and (max-width: 680px) {
-      gap: 40px;
-    }
+    gap: 32px;
 
     &-item {
       width: 160px;
