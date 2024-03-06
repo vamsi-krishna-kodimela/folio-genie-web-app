@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services';
-import { User } from 'src/app/shared/types';
 import { OnboardService } from '../../services/onboard/onboard.service';
 import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -61,5 +59,5 @@ export class GetStartedComponent implements OnInit {
 interface GetStartedData {
   firstName: string;
   lastName: string;
-  profilePic: string;
+  profilePic?: string;
 }

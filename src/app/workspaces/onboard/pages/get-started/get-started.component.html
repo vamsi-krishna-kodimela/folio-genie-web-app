@@ -24,5 +24,8 @@
     placeholder="Enter Mobile Number"
     [required]="true"
   ></app-customfield> -->
-  <app-file-upload-field label="Upload Profile Pic"></app-file-upload-field>
+  <app-file-upload-field
+    label="Upload Profile Pic"
+    [(fileUrl)]="data.profilePic"
+  ></app-file-upload-field>
 </form>
