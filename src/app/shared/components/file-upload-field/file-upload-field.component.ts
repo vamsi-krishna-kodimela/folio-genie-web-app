@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FileUploadFieldComponent {
   isUploading: boolean = false;
+  selectedImage: any;
 
   @Input() label: string = '';
   @Input('fileUrl') _fileUrl?: string;
@@ -40,6 +41,13 @@ export class FileUploadFieldComponent {
     if (files.length > 0) {
       const file = files[0];
       this.isUploading = true;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        console.log(e.target);
+
+        this.selectedImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
       this.fileUploadService.uploadFile(file).subscribe({
         next: (res) => {
           this.fileUrl = res.url;
@@ -49,8 +57,19 @@ export class FileUploadFieldComponent {
         },
         complete: () => {
           this.isUploading = false;
+          this.selectedImage = undefined;
         },
       });
+    }
+  }
+
+  get previewImage(): string {
+    if (this.selectedImage) {
+      return `url(${this.selectedImage})`;
+    } else if (this.fileUrl) {
+      return `url(${this.fileUrl})`;
+    } else {
+      return 'none';
     }
   }
 }

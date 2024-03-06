@@ -7,7 +7,9 @@
   />
   <div
     class="file-upload-field__icon"
-    [ngStyle]="{ backgroundImage: fileUrl ? 'url(' + fileUrl + ')' : 'none' }"
+    [ngStyle]="{
+      backgroundImage: previewImage
+    }"
   >
     <feather-icon
       [name]="isUploading ? 'loader' : 'upload'"
