@@ -23,5 +23,6 @@
     class="custom-field__sufix"
     *ngIf="sufixIcon"
     [ngStyle]="{ color: sufixIconColor ?? 'red' }"
+    (click)="onSufixIconClick()"
   ></feather-icon>
 </div>

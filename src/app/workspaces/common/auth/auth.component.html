@@ -1,8 +1,33 @@
 <app-navbar></app-navbar>
 <form class="login-form" (submit)="authenticateUser($event)">
-  <div class="login-form__title">Log in or Sign Up in seconds</div>
-  <app-customfield label="Email" [(value)]="email" placeholder="tim@example.com"></app-customfield>
-  <app-customfield label="Password" [(value)]="password" placeholder="Secure password"></app-customfield>
+  <div class="social-signin">
+    <button class="social-signin__btn social-signin__btn--google">
+      <span class="social-signin__btn-text">Log in with Google</span>
+    </button>
+    <button class="social-signin__btn social-signin__btn--linkedin">
+      <span class="social-signin__btn-text">Log in with LinkedIn </span>
+    </button>
+  </div>
+  <div class="login-form__seperator">
+    <div class="login-form__seperator-line"></div>
+    <div class="login-form__seperator-text">or</div>
+    <div class="login-form__seperator-line"></div>
+  </div>
+  <div class="login-form__title">Continue with Email</div>
+  <app-customfield
+    label="Email"
+    [(value)]="email"
+    placeholder="tim@example.com"
+  ></app-customfield>
+  <app-customfield
+    label="Password"
+    [(value)]="password"
+    placeholder="Secured password"
+    [type]="showPassword ? 'text' : 'password'"
+    [sufixIcon]="!showPassword ? 'eye' : 'eye-off'"
+    sufixIconColor="#5271ff"
+    (sufixIconClick)="togglePasswordVisibility()"
+  ></app-customfield>
   <button
     type="submit"
     mat-flat-button

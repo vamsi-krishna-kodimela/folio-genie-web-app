@@ -14,9 +14,10 @@ export class CustomfieldComponent {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() readOnly: boolean = false;
-  @Input() type: 'text' | 'email' | 'number' = 'text';
+  @Input() type: 'text' | 'email' | 'number' | 'password' = 'text';
   @Input('value') _value: string = '';
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sufixIconClick: EventEmitter<void> = new EventEmitter<void>();
 
   get value(): string {
     return this._value;
@@ -25,5 +26,9 @@ export class CustomfieldComponent {
   set value(v: string) {
     this._value = v;
     this.valueChange.emit(this._value);
+  }
+
+  onSufixIconClick() {
+    this.sufixIconClick.emit();
   }
 }

@@ -15,11 +15,16 @@ import { AuthService } from 'src/app/shared/services';
 export class AuthComponent {
   email: string = '';
   password: string = '';
+  showPassword: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   authenticateUser(event: Event) {
     this.authService.authenticateUser(this.email, this.password);
     event.preventDefault();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

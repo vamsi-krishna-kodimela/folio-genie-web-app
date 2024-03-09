@@ -10,6 +10,46 @@
   @media screen and (max-width: 600px) {
     gap: 24px;
   }
+
+  .social-signin {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      border: 2px solid $primary-color;
+      border-radius: 8px;
+      background-color: transparent;
+      color: $primary-color;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: rgba($primary-color, 0.3);
+      }
+    }
+  }
+
+  &__seperator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    &-line {
+      flex: 1;
+      height: 0.75px;
+      background-color: $secondary-text-color;
+    }
+    &-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: $text-color;
+    }
+  }
   &__title {
     color: $text-color;
     margin: 0px auto;

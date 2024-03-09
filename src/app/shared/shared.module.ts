@@ -21,13 +21,14 @@ import {
   Check,
   X,
   Eye,
+  EyeOff,
   Upload,
   Smartphone,
   Monitor,
   Tablet,
   Settings,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
 } from 'angular-feather/icons';
 import { TemplateConfigComponent } from './components/template-preview/components/template-config/template-config.component';
 import { FormsModule } from '@angular/forms';
@@ -51,7 +52,8 @@ const icons = {
   Tablet,
   Settings,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  EyeOff,
 };
 
 @NgModule({
