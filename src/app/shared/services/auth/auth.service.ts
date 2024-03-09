@@ -141,12 +141,12 @@ export class AuthService {
         route += 'choose-profession';
         break;
       case UserStatus.CHOOSE_PROFESSION:
-        route += 'connect-social';
-        break;
-      case UserStatus.CONNECT_SOCIAL:
         route += 'configure-website';
         break;
       case UserStatus.CONFIGURE_WEBSITE:
+        route += 'parse-source';
+        break;
+      case UserStatus.PARSING_SOURCE:
       case UserStatus.PARSING:
         route += 'parse-profile';
         break;

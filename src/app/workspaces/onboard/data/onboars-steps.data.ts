@@ -15,8 +15,9 @@ const ONBOARD_STEPS: OnboardStep[] = [
   {
     label: 'Customize Portfolio',
     group: [
-      UserStatus.CONNECT_SOCIAL,
+      // UserStatus.CONNECT_SOCIAL,
       UserStatus.CONFIGURE_WEBSITE,
+      UserStatus.PARSING_SOURCE,
       UserStatus.PARSING,
       UserStatus.PARSING_DONE,
     ],

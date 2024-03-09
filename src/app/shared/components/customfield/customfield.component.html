@@ -11,7 +11,7 @@
     class="custom-field__input"
     [ngClass]="{ 'custom-field__input--with-sufix': sufixIcon }"
     [id]="label"
-    [title]="label"
+    [title]="label??''"
     [placeholder]="placeholder"
     [(ngModel)]="value"
     [disabled]="disabled"

@@ -1,12 +1,17 @@
 <form class="connect-social">
-  <div class="connect-social__title">Choose Your Profession</div>
+  <div class="connect-social__title">Stay Connected</div>
   <div class="connect-social__list">
     <div class="connect-social__list-item" *ngFor="let handle of handles">
       <div class="connect-social__list-item-icon">
         <i-feather [name]="handle.icon" class="icon"></i-feather>
       </div>
       <div class="connect-social__list-item-input">
-        <app-customfield [(value)]="handle.link"></app-customfield>
+        <app-customfield
+          [(value)]="handle.link"
+          [placeholder]="
+            handle.canDelete ? handle.handle : 'Will be used to map your profile.*'
+          "
+        ></app-customfield>
       </div>
       <div
         class="connect-social__list-item-check"
@@ -14,10 +19,10 @@
           'connect-social__list-item-check--disabled': !handle.isChecked
         }"
       >
-        <i-feather
+        <!-- <i-feather
           [name]="handle.isChecked ? 'check-circle' : 'circle'"
           class="check-icon"
-        ></i-feather>
+        ></i-feather> -->
       </div>
     </div>
   </div>

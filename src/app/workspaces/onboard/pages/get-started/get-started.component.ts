@@ -35,7 +35,7 @@ export class GetStartedComponent implements OnInit {
   validateData(): boolean {
     for (const value of Object.values(this.data)) {
       if (value?.length == 0) {
-        this.toastr.error('Please fill all the fields');
+        this.toastr.error('Please fill all required fields');
         return false;
       }
     }
