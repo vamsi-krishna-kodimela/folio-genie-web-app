@@ -22,7 +22,7 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
 
   portfolioHandleListener$: Subject<string> = new Subject<string>();
 
-  isHandleValid: boolean = true;
+  isHandleValid: boolean = false;
   handleValidationProgress: boolean = false;
 
   constructor(
@@ -64,6 +64,7 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
           (user?.profile?.basicDetails?.lastName ?? '');
         if (user.profile?.siteConfig) {
           this.config = { ...user.profile.siteConfig };
+          this.isHandleValid = this.config.portfolioHandle.length > 0;
         }
       }
     });
@@ -85,6 +86,10 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
     this.isHandleValid = false;
     this.handleValidationProgress = true;
     this.portfolioHandleListener$.next(handle);
+  }
+
+  validateData(){
+    this.isHandleValid
   }
 
   get handleStateIndicator() {
