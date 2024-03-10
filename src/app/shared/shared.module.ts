@@ -29,6 +29,7 @@ import {
   Settings,
   ChevronDown,
   ChevronUp,
+  FileText,
 } from 'angular-feather/icons';
 import { TemplateConfigComponent } from './components/template-preview/components/template-config/template-config.component';
 import { FormsModule } from '@angular/forms';
@@ -54,6 +55,7 @@ const icons = {
   ChevronDown,
   ChevronUp,
   EyeOff,
+  FileText,
 };
 
 @NgModule({

@@ -1,1 +1,21 @@
-<p>profile-source works!</p>
+<div class="profile-source">
+  <h2 class="profile-source__title">Import Profile</h2>
+  <div class="profile-source__list">
+    <div
+      class="profile-source__list-item"
+      *ngFor="let source of profileSources"
+      [title]="source.displayValue"
+      [ngClass]="{
+        'profile-source__list-item--selected':
+          selectedProfileSource == source.sourceCode
+      }"
+      (click)="selectSource(source.sourceCode)"
+    >
+      <feather-icon [name]="source.icon" class="source-icon"></feather-icon>
+      <div class="source-name">{{ source.displayValue }}</div>
+    </div>
+  </div>
+  <div class="profile-source__details" *ngIf="selectedProfileSource">
+    <app-file-upload-field></app-file-upload-field>
+  </div>
+</div>
