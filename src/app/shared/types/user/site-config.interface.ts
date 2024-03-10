@@ -5,5 +5,5 @@ export interface SiteConfig {
   portfolioHandle: string;
   templateId: string;
   siteTitle: string;
-  linkedinId: string;
+  tagline: string;
 }

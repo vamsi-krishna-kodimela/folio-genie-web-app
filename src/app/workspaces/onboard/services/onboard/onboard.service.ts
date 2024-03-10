@@ -134,19 +134,14 @@ export class OnboardService {
 
   updateSiteConfig(data: SiteConfig) {
     this.commonService.setContentLoader(true);
-    data.linkedinId =
-      this.authService.user.value!.profile!.socialMediaHandles.find(
-        (handle) => handle.handle == 'linkedin'
-      )!.link;
     this.profileService
       .updateSiteConfig(data)
-      .pipe(mergeMap((config) => this.mapUserStatus()))
+      .pipe(mergeMap((_) => this.mapUserStatus()))
       .subscribe({
         next: (res) => {
           const user = { ...res };
           this.authService.setUser(user);
           this.commonService.setContentLoader(false);
-          this.parseProfile();
         },
         error: (err) => {
           this.toastrService.error(err.error.message);

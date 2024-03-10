@@ -16,7 +16,7 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
     portfolioHandle: '',
     templateId: '',
     siteTitle: '',
-    linkedinId: '',
+    tagline: '',
   };
   subscriptions: Subscription[] = [];
 
@@ -71,6 +71,8 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
   }
 
   listenProceed() {
+    console.log('listening proceed');
+
     return this.onboardService.proceed$.subscribe({
       next: () => this.onboardService.updateSiteConfig(this.config),
     });
@@ -88,8 +90,8 @@ export class ConfigurePortfolioComponent implements OnInit, OnDestroy {
     this.portfolioHandleListener$.next(handle);
   }
 
-  validateData(){
-    this.isHandleValid
+  validateData() {
+    this.isHandleValid;
   }
 
   get handleStateIndicator() {

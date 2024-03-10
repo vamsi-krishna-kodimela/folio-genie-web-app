@@ -65,9 +65,9 @@ export class FileUploadFieldComponent {
 
   get previewImage(): string {
     if (this.selectedImage) {
-      return `url(${this.selectedImage})`;
+      return `url('${this.selectedImage}')`;
     } else if (this.fileUrl) {
-      return `url(${this.fileUrl})`;
+      return `url('${this.fileUrl}')`;
     } else {
       return 'none';
     }
