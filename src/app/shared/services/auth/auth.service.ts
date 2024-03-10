@@ -127,6 +127,22 @@ export class AuthService {
     });
   }
 
+  resendVerificationEmail() {
+    this.commonService.setContentLoader(true);
+    this.profileService.resendVerificationEmail().subscribe({
+      next: (_) => {
+        this.toastrService.success('Verification email sent successfully!');
+        this.commonService.setContentLoader(false);
+      },
+      error: (err) => {
+        this.toastrService.error(
+          err.error.message ?? 'Failed to send verification email.'
+        );
+        this.commonService.setContentLoader(false);
+      },
+    });
+  }
+
   get authToken(): string | null {
     return this.cookies.get('token');
   }
@@ -142,11 +158,12 @@ export class AuthService {
     this.profileService.getUser().subscribe({
       next: (res: User) => {
         this.user.value = res;
-        this.commonService.setContentLoader(false);
       },
       error: (err) => {
-        this.commonService.setContentLoader(false);
         this.toastrService.error(err.error.message);
+      },
+      complete: () => {
+        this.commonService.setContentLoader(false);
       },
     });
   }

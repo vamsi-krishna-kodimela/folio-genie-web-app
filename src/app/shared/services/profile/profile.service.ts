@@ -59,4 +59,9 @@ export class ProfileService {
     const endpoint = this.endpoint + `/verify-email/${token}`;
     return this.http.get(endpoint);
   }
+
+  resendVerificationEmail() {
+    const endpoint = this.endpoint+ '/resend-email-verification';
+    return this.http.get(endpoint);
+  }
 }

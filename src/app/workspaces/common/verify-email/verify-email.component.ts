@@ -16,9 +16,7 @@ import { AuthService } from 'src/app/shared/services';
   styleUrl: './verify-email.component.scss',
 })
 export class VerifyEmailComponent implements OnInit {
-  resendEmail() {
-    throw new Error('Method not implemented.');
-  }
+
   verificationToken?: string;
   userEmail$: Observable<string>;
 
@@ -38,5 +36,9 @@ export class VerifyEmailComponent implements OnInit {
 
   validateEmail() {
     this.authService.verifyEmail(this.verificationToken!);
+  }
+
+  resendVerificationEmail() {
+    this.authService.resendVerificationEmail();
   }
 }
