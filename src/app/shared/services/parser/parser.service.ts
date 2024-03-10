@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environment/environment';
+import { ResumeParserComponent } from '../../components/resume-parser/resume-parser.component';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,7 @@ import { environment } from 'src/environment/environment';
 export class ParserService {
   private readonly endpoint: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dialog: MatDialog) {
     this.endpoint = `${environment.host}/user/parser`;
   }
 
@@ -27,5 +29,9 @@ export class ParserService {
       handleType: string;
       status: string;
     }>(endpoint);
+  }
+
+  openResumeParser() {
+    this.dialog.open(ResumeParserComponent);
   }
 }

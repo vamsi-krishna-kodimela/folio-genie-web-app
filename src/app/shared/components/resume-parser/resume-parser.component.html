@@ -1,0 +1,24 @@
+<div class="resume-parser">
+  <h2 class="resume-parser__title">Parse Resume</h2>
+  <div class="resume-parser__form">
+    <input type="file" class="resume-parser__form-field" accept="application/pdf" appDnd />
+    <div class="resume-parser__form-wrapper">
+      <feather-icon
+        name="upload"
+        class="resume-parser__form-wrapper__icon"
+      ></feather-icon>
+      <span class="resume-parser__form-wrapper__label"
+        >Upload Resume (.pdf)</span
+      >
+    </div>
+  </div>
+  <div class="resume-parser__footer">
+    <button class="resume-parser__footer-btn">Fetch Profile</button>
+    <button
+      class="resume-parser__footer-btn resume-parser__footer-btn--secondary"
+      (click)="closeDialog()"
+    >
+      Change Source
+    </button>
+  </div>
+</div>
