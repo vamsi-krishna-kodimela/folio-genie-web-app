@@ -16,6 +16,23 @@ const routes: Routes = [
       ),
   },
   {
+    canActivate: [authGuard],
+    path: 'email-verification',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./workspaces/common/verify-email/verify-email.component').then(
+        (m) => m.VerifyEmailComponent
+      ),
+  },
+  {
+    canActivate: [authGuard],
+    path: 'email-verification/:token',
+    loadComponent: () =>
+      import('./workspaces/common/verify-email/verify-email.component').then(
+        (m) => m.VerifyEmailComponent
+      ),
+  },
+  {
     path: 'onboard',
     canActivate: [authGuard],
     loadChildren: () =>

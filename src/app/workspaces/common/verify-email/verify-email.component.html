@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="verify-email">
+  <div class="verify-email__container">
+    <div
+      class="verify-email__content"
+      *ngIf="
+        !(verificationToken && verificationToken.length > 0);
+        else validationLoader
+      "
+    >
+      <h1 class="verify-email__title">Verify your email</h1>
+      <p class="verify-email__description">
+        We have sent an email to
+        <span class="verify-email__email">{{ userEmail$ | async }}</span
+        >. Please click on the link in the email to verify your email address.
+      </p>
+      <p class="verify-email__resend">
+        Didn't receive the email?
+        <a href="#" (click)="resendEmail()">Resend email</a>
+      </p>
+    </div>
+    <ng-template #validationLoader>
+      <div class="verify-email__content">Verifying email address...</div>
+    </ng-template>
+  </div>
+</div>

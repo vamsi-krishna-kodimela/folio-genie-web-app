@@ -3,7 +3,7 @@ import { User } from '../../types';
 import { CookieService } from 'ngx-cookie-service';
 import { CommonService } from '../common/common.service';
 import { ReactiveValue } from '../../utils/reactive-value.class';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserStatus } from '../../types/user/user-status.enum';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../profile/profile.service';
@@ -31,8 +31,14 @@ export class AuthService {
 
   userListener() {
     this.user.value$.subscribe((user) => {
-      if (user) {
+      if (user && user.isEmailVerified) {
         this.handleUserOnboarding(user.status);
+      } else if (
+        user &&
+        !user.isEmailVerified &&
+        !location.href.includes('email-verification')
+      ) {
+        this.router.navigateByUrl(`/email-verification/`);
       }
     });
   }
@@ -102,6 +108,23 @@ export class AuthService {
     }
 
     return true;
+  }
+
+  verifyEmail(token: string) {
+    this.commonService.setContentLoader(true);
+    this.profileService.verifyEmail(token).subscribe({
+      next: (_) => {
+        this.getUser();
+        this.toastrService.success('Email verified successfully!');
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.message);
+      },
+      complete: () => {
+        this.commonService.setContentLoader(false);
+      },
+    });
   }
 
   get authToken(): string | null {

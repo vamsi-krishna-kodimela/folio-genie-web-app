@@ -54,4 +54,9 @@ export class ProfileService {
     const endpoint = this.endpoint + '/site-config/validate-handle';
     return this.http.post<{ isValid: boolean }>(endpoint, { handle });
   }
+
+  verifyEmail(token: string) {
+    const endpoint = this.endpoint + `/verify-email/${token}`;
+    return this.http.get(endpoint);
+  }
 }

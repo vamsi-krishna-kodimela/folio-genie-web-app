@@ -8,4 +8,5 @@ export interface User {
   isProfileCompleted: boolean;
   profile: Profile;
   status: UserStatus;
+  isEmailVerified: boolean;
 }
