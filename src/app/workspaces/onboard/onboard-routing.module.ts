@@ -59,6 +59,13 @@ const routes: Routes = [
         component: ChooseDesignComponent,
       },
       {
+        path: 'parse-source',
+        loadComponent: () =>
+          import('./pages/profile-source/profile-source.component').then(
+            (m) => m.ProfileSourceComponent
+          ),
+      },
+      {
         path: '**',
         redirectTo: '/onboard/get-started',
       },
